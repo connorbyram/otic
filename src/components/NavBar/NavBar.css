@@ -1,0 +1,25 @@
+nav {
+    border-bottom: solid 1px black;
+}
+
+.nav-container {
+    margin: 0 auto;
+    padding: 10px 40px;
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a {
+    all: unset;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+span {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
