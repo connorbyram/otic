@@ -1,0 +1,9 @@
+img {
+    width: 100%;
+}
+
+.flex-vert {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}

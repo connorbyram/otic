@@ -7,7 +7,8 @@ module.exports = {
 
 async function index(req, res) {
     try{
-        const collections = await Collection.find({});
+        const collections = await Collection.find({})
+            .populate('creator').exec();
         res.json(collections);
     } catch(err) {
         res.status(400).json(err)
