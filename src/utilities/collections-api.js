@@ -5,6 +5,6 @@ export async function index() {
     return sendRequest(BASE_URL);
   }
 
-  export async function create(collection) {
-    return sendRequest(BASE_URL, 'POST', collection);
-  }
+export async function create(collection) {
+  return sendRequest(BASE_URL, 'POST', collection);
+}

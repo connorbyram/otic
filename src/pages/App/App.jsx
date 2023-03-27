@@ -6,6 +6,7 @@ import './App.css';
 import AuthPage from '../AuthPage/AuthPage';
 import LandingPage from '../LandingPage/LandingPage';
 import NewCollectionPage from '../NewCollectionPage/NewCollectionPage';
+import CollectionPage from '../CollectionPage/CollectionPage'
 import NavBar from '../../components/NavBar/NavBar';
 
 export default function App() {
@@ -35,6 +36,8 @@ export default function App() {
             <Routes>
               {/* Route components in here */}
               <Route path="/" element={<LandingPage collections={collections} />} />
+              <Route path="/:userName" element={<LandingPage collections={collections} />} />
+              <Route path="/:userName/:collectionTitle" element={<CollectionPage collections={collections}/>} />
               <Route path="/new_collection" element={<NewCollectionPage addCollection={addCollection} />} />
             </Routes>
           </>

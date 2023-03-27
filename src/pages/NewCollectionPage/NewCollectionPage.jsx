@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import * as collectionsAPI from '../../utilities/collections-api';
 
 const options = [
   'Alternative',
@@ -30,12 +31,18 @@ const options = [
 export default function NewCollectionPage({ addCollection }) {
   const [formData, setFormData] = useState({
     title:"", 
-    releaseDate: "", 
+    releaseDate: "",
+    // art: "", 
     embed: "", 
     notes: "", 
     genre:"",
   });
+  // const fileInputRef = useRef();
   const navigate = useNavigate();
+
+  // useEffect(function() {
+  //     collectionsAPI.index().then(art => setFormData(art));
+  //   }, []);
 
   function handleSubmit(evt) {
     console.log(formData)
@@ -43,7 +50,8 @@ export default function NewCollectionPage({ addCollection }) {
     addCollection(formData);
     setFormData({
       title:"", 
-      releaseDate: "", 
+      releaseDate: "",
+      // art: "", 
       embed: "", 
       notes: "", 
       genre:"",
@@ -59,6 +67,7 @@ export default function NewCollectionPage({ addCollection }) {
     <>
       <h1>NewCollectionPage</h1>
       <form className="NewCollectionForm" onSubmit={handleSubmit}>
+        {/* <input type="file" ref={fileInputRef} /> */}
         <input 
           name="title" 
           value={formData.title} 
