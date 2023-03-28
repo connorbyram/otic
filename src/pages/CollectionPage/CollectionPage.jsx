@@ -1,10 +1,16 @@
 import { useParams } from "react-router-dom";
+import * as collectionsAPI from '../../utilities/collections-api';
 import "./CollectionPage.css"
 
-export default function CollectionPage({collections}) {
-    let { collectionTitle } = useParams();
-    let collection = collections.find((c) => c.title === collectionTitle);
-    console.log(collections, "detail page");
+export default function CollectionPage({collections, setCollections, user}) {
+    let { collectionID } = useParams();
+    let collection = collections.find((c) => c._id === collectionID);
+
+    async function handleDeleteCollection(id) {
+        await collectionsAPI.deleteCollection(id);
+        const remainingCollections = collections.filter(collection => collection._id !==id);
+        setCollections(remainingCollections);
+    }
 
     if (collections.length===0) return null;
 
@@ -13,7 +19,14 @@ export default function CollectionPage({collections}) {
             <div className="container">
                 <div className="flex">
                     <div className="collection-info">
-                        <img src={collection.imageUrl} alt="collection art" />
+                        <div>
+                            <img src={collection.imageUrl} alt="collection art" />
+                            {user._id === collection.user._id?
+                                <div><button onClick={() => handleDeleteCollection(collection._id)}>Delete</button></div>
+                                :
+                                <></>
+                            }
+                        </div>
                         <div>
                             <h1>{collection.title}</h1>
                             <h2> by {collection.user.name}</h2>

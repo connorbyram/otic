@@ -11,3 +11,7 @@ export async function create(collection) {
   return createResponse
   // return sendRequest(BASE_URL, 'POST', collection);
 }
+
+export async function deleteCollection(id) {
+  return sendRequest(`${BASE_URL}/${id}`, 'DELETE')
+}

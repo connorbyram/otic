@@ -2,7 +2,8 @@ const Collection = require('../../models/collection')
 
 module.exports = {
     index,
-    create
+    create,
+    delete: deleteCollection
 }
 
 async function index(req, res) {
@@ -26,4 +27,9 @@ async function create(req, res) {
         console.log(err); 
         res.status(400).json(err);
     }
+}
+
+async function deleteCollection(req, res) {
+    const removeCollection = await Collection.findByIdAndDelete({id: req.params.id, user: req.user._id})
+    res.json(removeCollection)
 }

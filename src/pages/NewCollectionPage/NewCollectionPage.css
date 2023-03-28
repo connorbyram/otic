@@ -1,0 +1,64 @@
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+form > input {
+    all: unset;
+    margin-bottom: 15px;
+    padding: 10px 20px 10px 10px;
+    min-width: 300px;
+    margin-right: 10px;
+    font-size: 18px;
+    text-align: left;
+    border: solid 1px black;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.date {
+    all: unset;
+    display: block;
+    width: 97.6%;
+    position: static;
+    margin: 0 0 15px 0;
+    padding: 10px 20px 10px 10px;
+    min-width: 300px;
+    margin-right: 10px;
+    font-size: 18px;
+    text-align: left;
+    border: solid 1px black;
+    border-radius: 5px;
+    background-color: white;
+}
+
+select {
+    margin-bottom: 15px;
+    padding: 10px 20px 10px 10px;
+    margin-right: 10px;
+    min-width: 300px;
+    font-size: 18px;
+    text-align: left;
+    border: solid 1px black;
+    border-radius: 5px;
+}
+
+textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px 20px 10px 10px;
+    margin-right: 10px;
+    font-size: 18px;
+    text-align: left;
+    border: solid 1px black;
+    border-radius: 5px;
+}
+
+.agreement {
+    margin-bottom: 30px;
+    display: flex;
+}
+
+

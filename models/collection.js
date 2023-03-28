@@ -9,13 +9,14 @@ const collectionSchema = new Schema ({
     },
     imageUrl: {type: String, required: true},
     title: {type: String, required: true},
-    releaseDate: {type: String, required: true},
+    releaseDate: {type: Date, required: true},
     embed: {type: String, required: true},
     notes: {type: String},
     genre: {
         type: String,
         required: true
     },
+    agreement: {type: Boolean, default: false}
 
 }, {
     timestamps: true,

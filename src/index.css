@@ -51,3 +51,18 @@ p {
   font-size: 18px;
   text-align: left;
 }
+
+button {
+  all: unset;
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 75%;
+  cursor: not-allowed;
+}

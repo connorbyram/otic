@@ -10,6 +10,9 @@
     justify-content: left;
     align-items: left;
 }
+img {
+    max-height: 75vh;
+}
 
 .collection-info > div {
     margin-top: 10px;

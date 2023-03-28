@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const usersCtrl = require('../../controllers/api/users');
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
+const collection = require('../../models/collection');
 
 // All paths start with '/api/users'
 
