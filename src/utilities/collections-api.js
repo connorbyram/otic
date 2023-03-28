@@ -6,5 +6,8 @@ export async function index() {
   }
 
 export async function create(collection) {
-  return sendRequest(BASE_URL, 'POST', collection);
+  const createResponse = await sendRequest(BASE_URL, 'POST', collection);
+  console.log(createResponse, "this is the createResponse")
+  return createResponse
+  // return sendRequest(BASE_URL, 'POST', collection);
 }

@@ -8,7 +8,7 @@ const collectionSchema = new Schema ({
         required: true
     },
     imageUrl: {type: String, required: true},
-    title: {type: String,require: true,},
+    title: {type: String, required: true},
     releaseDate: {type: String, required: true},
     embed: {type: String, required: true},
     notes: {type: String},

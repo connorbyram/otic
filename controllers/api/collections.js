@@ -17,10 +17,13 @@ async function index(req, res) {
 
 async function create(req, res) {
     try{
-        req.body.creator = req.user._id;
+        req.body.user = req.user._id;
+        console.log(req.body.user);
         const collection = await Collection.create(req.body);
-        res.json(collection)
+        console.log(collection);
+        res.json(collection);
     } catch(err) {
-        res.status(400).json(err)
+        console.log(err); 
+        res.status(400).json(err);
     }
 }
