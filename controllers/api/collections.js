@@ -1,4 +1,3 @@
-const uploadFile = require('../../config/upload-file');
 const Collection = require('../../models/collection')
 
 module.exports = {
@@ -18,20 +17,9 @@ async function index(req, res) {
 
 async function create(req, res) {
     try{
-        if (req.file){
-            req.body.creator = req.user._id;
-            console.log('Create Function', req.body, req.file);
-
-            const artURL = await uploadFile(req.file);
-
-            const collection = await Collection.create({
-                art: artURL,
-                ...req.body,
-            });
-            res.json(collection)
-        } else {
-            throw new Error ('Must select a file');
-        }
+        req.body.creator = req.user._id;
+        const collection = await Collection.create(req.body);
+        res.json(collection)
     } catch(err) {
         res.status(400).json(err)
     }

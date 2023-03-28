@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import NewCollectionPage from '../../pages/NewCollectionPage/NewCollectionPage';
 import * as userService from '../../utilities/users-service';
 import "./NavBar.css"
 

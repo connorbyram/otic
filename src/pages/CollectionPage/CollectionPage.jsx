@@ -21,6 +21,7 @@ export default function CollectionPage({collections}) {
                     </div>
                     <div className="collection-player">
                         <iframe 
+                            title={collection.title}
                             src={`https://bandcamp.com/EmbeddedPlayer/album=${collection.embed}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/`} seamless>
                         </iframe>
                     </div>

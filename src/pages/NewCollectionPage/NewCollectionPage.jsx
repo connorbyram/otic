@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import * as collectionsAPI from '../../utilities/collections-api';
+import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import * as collectionsAPI from '../../utilities/collections-api';
 
 const options = [
   'Alternative',
@@ -30,28 +30,25 @@ const options = [
 
 export default function NewCollectionPage({ addCollection }) {
   const [formData, setFormData] = useState({
+    imageUrl:"",
     title:"", 
-    releaseDate: "",
-    // art: "", 
+    releaseDate: "", 
     embed: "", 
     notes: "", 
     genre:"",
   });
-  // const fileInputRef = useRef();
-  const navigate = useNavigate();
 
-  // useEffect(function() {
-  //     collectionsAPI.index().then(art => setFormData(art));
-  //   }, []);
+  // const navigate = useNavigate();
+
 
   function handleSubmit(evt) {
     console.log(formData)
     evt.preventDefault();
     addCollection(formData);
     setFormData({
+      imageUrl:"",
       title:"", 
       releaseDate: "",
-      // art: "", 
       embed: "", 
       notes: "", 
       genre:"",
@@ -67,7 +64,12 @@ export default function NewCollectionPage({ addCollection }) {
     <>
       <h1>NewCollectionPage</h1>
       <form className="NewCollectionForm" onSubmit={handleSubmit}>
-        {/* <input type="file" ref={fileInputRef} /> */}
+        <input 
+          name="imageUrl" 
+          value={formData.imageUrl} 
+          onChange={handleChange} 
+          placeholder="Cover URL" 
+        />
         <input 
           name="title" 
           value={formData.title} 
@@ -88,7 +90,7 @@ export default function NewCollectionPage({ addCollection }) {
         />
         
         <select name="genre" value={formData.genre} onChange={handleChange}>
-          {/* <option disabled selected value>Select One...</option> */}
+          {/* <option disabled>Select One...</option> */}
           { options.map(function(option, idx) {
             return <option key={option} value={option}>{option}</option>
           }) };

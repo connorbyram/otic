@@ -36,9 +36,9 @@ export default function App() {
             <Routes>
               {/* Route components in here */}
               <Route path="/" element={<LandingPage collections={collections} />} />
+              <Route path="/new_collection" element={<NewCollectionPage addCollection={addCollection} />} />
               <Route path="/:userName" element={<LandingPage collections={collections} />} />
               <Route path="/:userName/:collectionTitle" element={<CollectionPage collections={collections}/>} />
-              <Route path="/new_collection" element={<NewCollectionPage addCollection={addCollection} />} />
             </Routes>
           </>
           :

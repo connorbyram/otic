@@ -10,8 +10,6 @@ export default function CollectionTile({ collection }) {
                 <h3>{collection.title}</h3>
                 <h4>by {collection.user.name}</h4>
             </div>
-
-
         </Link>
     );
 }
