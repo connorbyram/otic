@@ -5,7 +5,7 @@ export default function CollectionTile({ collection }) {
 
     return (
         <Link to={`/${collection.user.name}/${collection.title}`}>
-            <img src="https://f4.bcbits.com/img/a1288843402_16.jpg" alt="" />
+            <img src={collection.imageUrl} alt="collection art" />
             <div className='flex-vert'>
                 <h3>{collection.title}</h3>
                 <h4>by {collection.user.name}</h4>

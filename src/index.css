@@ -22,12 +22,14 @@ section {
 
 h1 {
   all: unset;
+  margin: 5px 0 12px;
   font-size: 45px;
   text-align: left;
 }
 
 h2 {
   all: unset;
+  margin-bottom: 12px;
   font-size: 35px;
   text-align: left;
 }
@@ -39,6 +41,12 @@ h3 {
 }
 
 h4 {
+  all: unset;
+  font-size: 18px;
+  text-align: left;
+}
+
+p {
   all: unset;
   font-size: 18px;
   text-align: left;
