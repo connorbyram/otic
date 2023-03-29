@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import * as collectionsAPI from '../../utilities/collections-api';
 import "./CollectionPage.css"
 
@@ -25,10 +25,13 @@ export default function CollectionPage({collections, setCollections, user}) {
             <div className="container">
                 <div className="flex">
                     <div className="collection-info">
-                        <div>
+                        <div className="collection-cover">
                             <img src={collection.imageUrl} alt="collection art" />
                             {user._id === collection.user._id?
-                                <div><button onClick={() => handleDeleteCollection(collection._id)}>Delete</button></div>
+                                <div className="controls">
+                                    <Link>Update</Link>
+                                    <button onClick={() => handleDeleteCollection(collection._id)}>Delete</button>
+                                </div>
                                 :
                                 <></>
                             }

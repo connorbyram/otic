@@ -10,6 +10,7 @@
     justify-content: left;
     align-items: left;
 }
+
 img {
     max-height: 75vh;
 }
@@ -27,7 +28,18 @@ img {
     padding: 0 0 0 20px;
 }
 iframe {
+    padding-top: 10px;
     border: 0;
     width: 100%;
     height: 241px;
+}
+
+.collection-cover {
+    position: relative;
+}
+
+.controls {
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
