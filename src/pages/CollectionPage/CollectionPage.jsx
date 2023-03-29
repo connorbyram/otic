@@ -25,8 +25,8 @@ export default function CollectionPage({collections, setCollections, user}) {
 
     return (
         <>
-            <button onClick={() => setEdit(!edit)}>Edit</button>
-            { edit? 
+            
+            { !edit? 
                 <section>
                     <div className="container">
                         <div className="flex">
@@ -35,7 +35,7 @@ export default function CollectionPage({collections, setCollections, user}) {
                                     <img src={collection.imageUrl} alt="collection art" />
                                     {user._id === collection.user._id?
                                         <div className="controls">
-                                            <Link to={`/${collection._id}/update`}>Update</Link>
+                                            <button onClick={() => setEdit(!edit)}>Edit</button>
                                             <button onClick={() => handleDeleteCollection(collection._id)}>Delete</button>
                                         </div>
                                         :
@@ -57,7 +57,10 @@ export default function CollectionPage({collections, setCollections, user}) {
                     </div>
                 </section>
                 :
-                <CollectionForm collection={collection} />
+                <>
+                    <button onClick={() => setEdit(!edit)}>Close</button>
+                    <CollectionForm collection={collection} />
+                </>
             }
         </>
 
