@@ -46,9 +46,9 @@ export default function NewCollectionPage({ addCollection, collection }) {
     agreement: false
   });
 
-  async function handleSubmit(evt) {
+  function handleSubmit(evt) {
     evt.preventDefault();
-    await addCollection({
+    addCollection({
       ...formData,
       releaseDate: releaseDate,
     });
@@ -75,7 +75,6 @@ export default function NewCollectionPage({ addCollection, collection }) {
 
   return (
     <>
-      <h1>NewCollectionPage</h1>
       <section>
         <div className="container">
           <form className="NewCollectionForm" onSubmit={handleSubmit}>

@@ -6,21 +6,20 @@ import CollectionForm from '../../components/CollectionForm/CollectionForm'
 import "./CollectionPage.css"
 
 export default function CollectionPage({collections, setCollections, user}) {
-    const [edit, setEdit] = useState(false);
-    let { collectionID } = useParams();
-    let collection = collections.find((c) => c._id === collectionID);
-
     const navigate = useNavigate();
+    const [edit, setEdit] = useState(false);
+    let { id } = useParams();
+    let collection = collections.find((c) => c._id === id);
+
 
     async function handleDeleteCollection(id) {
         const deletedCollection = await collectionsAPI.deleteCollection(id);
-        console.log(deletedCollection, 'this is our deleted item');
         const remainingCollections = collections.filter((collection) => collection._id !== id);
         setCollections(remainingCollections);
         navigate('/');
     }
 
-    if (collections.length===0) return null;
+    if (!collection) return null;
 
 
     return (

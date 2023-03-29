@@ -10,7 +10,8 @@ module.exports = {
 async function index(req, res) {
     try{
         const collections = await Collection.find({})
-            .populate('user').exec();
+            .populate('user')
+            .sort('-createdAt');
         res.json(collections);
     } catch(err) {
         res.status(400).json(err)
@@ -21,6 +22,7 @@ async function create(req, res) {
     try{
         req.body.user = req.user._id;
         const collection = await Collection.create(req.body);
+        await collection.populate('user');
         res.json(collection);
     } catch(err) {
         console.log(err); 
