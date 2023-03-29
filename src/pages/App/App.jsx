@@ -13,11 +13,13 @@ import UpdateCollectionPage from '../UpdateCollectionPage/UpdateCollectionPage';
 export default function App() {
   const [user, setUser] = useState(getUser());
   const [collections, setCollections] = useState([]);
+  const [newCollection, setNewCollection] = useState({});
 
   async function addCollection(collection) {
     const newCollection = await collectionsAPI.create(collection);
     console.log(newCollection);
     setCollections([...collections, newCollection]);
+    setNewCollection(newCollection);
   }
 
   useEffect(function() {
@@ -26,7 +28,7 @@ export default function App() {
       setCollections(allCollections);
     }
     getCollections()
-  }, [])
+  }, [newCollection])
 
 
 
@@ -38,7 +40,7 @@ export default function App() {
             <Routes>
               {/* Route components in here */}
               <Route path="/" element={<LandingPage collections={collections} />} />
-              <Route path="/new_collection" element={<NewCollectionPage addCollection={addCollection} collections={collections} setCollections={setCollections} />} />
+              <Route path="/new_collection" element={<NewCollectionPage addCollection={addCollection} />} />
               <Route path="/:collectionID" element={<CollectionPage collections={collections} user={user} setCollections={setCollections}/>} />
               <Route path="/:collectionID/update" element={<UpdateCollectionPage collections={collections} setCollections={setCollections}/>} />
               <Route path="/:userName" element={<LandingPage collections={collections} />} />
