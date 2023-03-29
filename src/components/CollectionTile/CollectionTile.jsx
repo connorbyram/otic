@@ -8,7 +8,7 @@ export default function CollectionTile({ collection }) {
             <img src={collection.imageUrl} alt="collection art" />
             <div className='flex-vert'>
                 <h3>{collection.title}</h3>
-                <h4>by {collection.user.name}</h4>
+                <h4>by {collection && collection.user.name}</h4>
             </div>
         </Link>
     );

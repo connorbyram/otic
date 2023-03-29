@@ -19,9 +19,7 @@ async function index(req, res) {
 async function create(req, res) {
     try{
         req.body.user = req.user._id;
-        console.log(req.body.user);
         const collection = await Collection.create(req.body);
-        console.log(collection);
         res.json(collection);
     } catch(err) {
         console.log(err); 
@@ -30,6 +28,6 @@ async function create(req, res) {
 }
 
 async function deleteCollection(req, res) {
-    const removeCollection = await Collection.findByIdAndDelete({id: req.params.id, user: req.user._id})
+    const removeCollection = await Collection.findOneAndDelete({_id: req.params.id, user: req.user._id});
     res.json(removeCollection)
 }

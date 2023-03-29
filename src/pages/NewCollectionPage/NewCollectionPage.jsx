@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import './NewCollectionPage.css'
@@ -45,9 +45,7 @@ export default function NewCollectionPage({ addCollection }) {
     agreement:false
   });
 
-  // const navigate = useNavigate();
-  // const disable = this.state.agreement !== true;
-
+  const navigate = useNavigate();
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -65,7 +63,7 @@ export default function NewCollectionPage({ addCollection }) {
       agreement:false
     });
     setReleaseDate("");
-    // navigate('/:collectionID');
+    navigate('/');
   }
 
   function handleChange(evt) {

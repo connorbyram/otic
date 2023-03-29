@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
 import * as collectionsAPI from '../../utilities/collections-api';
 import "./CollectionPage.css"
 
@@ -6,13 +7,18 @@ export default function CollectionPage({collections, setCollections, user}) {
     let { collectionID } = useParams();
     let collection = collections.find((c) => c._id === collectionID);
 
+    const navigate = useNavigate();
+
     async function handleDeleteCollection(id) {
-        await collectionsAPI.deleteCollection(id);
-        const remainingCollections = collections.filter(collection => collection._id !==id);
+        const deletedCollection = await collectionsAPI.deleteCollection(id);
+        console.log(deletedCollection, 'this is our deleted item');
+        const remainingCollections = collections.filter((collection) => collection._id !== id);
         setCollections(remainingCollections);
+        navigate('/');
     }
 
     if (collections.length===0) return null;
+
 
     return (
         <section>
@@ -29,7 +35,7 @@ export default function CollectionPage({collections, setCollections, user}) {
                         </div>
                         <div>
                             <h1>{collection.title}</h1>
-                            <h2> by {collection.user.name}</h2>
+                            <h2> by {collection && collection.user.name}</h2>
                         </div>
                     </div>
                     <div className="collection-player">

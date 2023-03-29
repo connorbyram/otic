@@ -15,6 +15,7 @@ export default function App() {
 
   async function addCollection(collection) {
     const newCollection = await collectionsAPI.create(collection);
+    console.log(newCollection);
     setCollections([...collections, newCollection]);
   }
 
@@ -24,7 +25,7 @@ export default function App() {
       setCollections(allCollections);
     }
     getCollections()
-  }, [])
+  }, [collections])
 
 
 
