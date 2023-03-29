@@ -29,7 +29,7 @@ export default function CollectionPage({collections, setCollections, user}) {
                             <img src={collection.imageUrl} alt="collection art" />
                             {user._id === collection.user._id?
                                 <div className="controls">
-                                    <Link>Update</Link>
+                                    <Link to={`/${collection._id}/update`}>Update</Link>
                                     <button onClick={() => handleDeleteCollection(collection._id)}>Delete</button>
                                 </div>
                                 :

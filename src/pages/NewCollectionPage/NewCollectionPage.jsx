@@ -33,6 +33,7 @@ const options = [
  
 
 export default function NewCollectionPage({ addCollection }) {
+  const navigate = useNavigate();
   const [releaseDate, setReleaseDate] = useState("");
   const [isAgreementChecked, setIsAgreementChecked] = useState(false);
   const [formData, setFormData] = useState({
@@ -45,7 +46,6 @@ export default function NewCollectionPage({ addCollection }) {
     agreement:false
   });
 
-  const navigate = useNavigate();
 
   async function handleSubmit(evt) {
     evt.preventDefault();
@@ -67,11 +67,11 @@ export default function NewCollectionPage({ addCollection }) {
   }
 
   function handleChange(evt) {
-      const value = evt.target.type === 'checkbox' ? evt.target.checked : evt.target.value;
-      setFormData({...formData, [evt.target.name]: value })
-      if (evt.target.name === 'agreement') {
-        setIsAgreementChecked(evt.target.checked);
-      }
+    const value = evt.target.type === 'checkbox' ? evt.target.checked : evt.target.value;
+    setFormData({...formData, [evt.target.name]: value })
+    if (evt.target.name === 'agreement') {
+      setIsAgreementChecked(evt.target.checked);
+    }
   }
 
   return (

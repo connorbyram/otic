@@ -3,11 +3,12 @@ import { Routes, Route } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 import * as collectionsAPI from '../../utilities/collections-api'
 import './App.css';
+import NavBar from '../../components/NavBar/NavBar';
 import AuthPage from '../AuthPage/AuthPage';
 import LandingPage from '../LandingPage/LandingPage';
-import NewCollectionPage from '../NewCollectionPage/NewCollectionPage';
 import CollectionPage from '../CollectionPage/CollectionPage'
-import NavBar from '../../components/NavBar/NavBar';
+import NewCollectionPage from '../NewCollectionPage/NewCollectionPage';
+import UpdateCollectionPage from '../UpdateCollectionPage/UpdateCollectionPage';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -25,7 +26,7 @@ export default function App() {
       setCollections(allCollections);
     }
     getCollections()
-  }, [collections])
+  }, [])
 
 
 
@@ -37,8 +38,9 @@ export default function App() {
             <Routes>
               {/* Route components in here */}
               <Route path="/" element={<LandingPage collections={collections} />} />
-              <Route path="/new_collection" element={<NewCollectionPage addCollection={addCollection} />} />
+              <Route path="/new_collection" element={<NewCollectionPage addCollection={addCollection} collections={collections} setCollections={setCollections} />} />
               <Route path="/:collectionID" element={<CollectionPage collections={collections} user={user} setCollections={setCollections}/>} />
+              <Route path="/:collectionID/update" element={<UpdateCollectionPage collections={collections} setCollections={setCollections}/>} />
               <Route path="/:userName" element={<LandingPage collections={collections} />} />
             </Routes>
           </>
