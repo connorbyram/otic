@@ -22,7 +22,7 @@ export default function App() {
     getCollections()
   }, [])
 
-  
+
   return (
     <main className="App">
       { user ?
@@ -32,7 +32,7 @@ export default function App() {
               {/* Route components in here */}
               <Route path="/" element={<LandingPage collections={collections} setCollections={setCollections} />} />
               <Route path="/new_collection" element={<NewCollectionPage collections={collections} setCollections={setCollections} />} />
-              <Route path="/:userName/:collectionTitle" element={<CollectionPage collections={collections} user={user} setCollections={setCollections}/>} />
+              <Route path="/:userName/:collectionTitle" element={<CollectionPage collections={collections} setCollections={setCollections} user={user} />} />
               {/* <Route path="/collections/favorites" element={<LandingPage collections={collections} />} /> */}
             </Routes>
           </>

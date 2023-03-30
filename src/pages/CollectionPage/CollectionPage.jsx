@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import * as collectionsAPI from '../../utilities/collections-api';
 import CollectionForm from '../../components/CollectionForm/CollectionForm'
 import "./CollectionPage.css"
 
-export default function CollectionPage({collections, setCollections, user}) {
+export default function CollectionPage({ collections, setCollections, user }) {
     const navigate = useNavigate();
     const [edit, setEdit] = useState(false);
-    let { userName, collectionTitle } = useParams();
-    let collection = collections.find((c) => c.user.name === userName && c.title === collectionTitle);
-
+    const [collection, setCollection] = useState(null);
+    const { userName, collectionTitle } = useParams();
+    
+    useEffect(function() {
+        const collection = collections.find((c) => c.user.name === userName && c.title === collectionTitle);
+        setCollection(collection);
+    }, [collections, collectionTitle, userName]);
 
     async function handleDeleteCollection(id) {
         await collectionsAPI.deleteCollection(id);
@@ -57,7 +61,7 @@ export default function CollectionPage({collections, setCollections, user}) {
                 :
                 <>
                     <button onClick={() => setEdit(!edit)}>Close</button>
-                    <CollectionForm collection={collection} />
+                    <CollectionForm collection={collection} collections={collections} setCollections={setCollections} />
                 </>
             }
         </>

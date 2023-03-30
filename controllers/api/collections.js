@@ -36,13 +36,15 @@ async function deleteCollection(req, res) {
 }
 
 async function update(req, res) {
+    console.log(req.body, req.params.id);
     try{
         const updatedCollection = await Collection.findOneAndUpdate(
             {_id: req.params.id, user: req.user._id},
             req.body,
             {new: true},
-            res.json(updatedCollection)
         );
+        await updatedCollection.populate('user');
+        res.json(updatedCollection)
     } catch (err) {
         console.log(err.message);
     }

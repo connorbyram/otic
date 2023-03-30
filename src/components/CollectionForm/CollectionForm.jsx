@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import '../../pages/NewCollectionPage/NewCollectionPage.css'
-import * as collectionsAPI from '../../utilities/collections-api';
+import "../../pages/NewCollectionPage/NewCollectionPage.css"
+import * as collectionsAPI from "../../utilities/collections-api";
 
 const options = [
   'Alternative',
@@ -33,6 +33,7 @@ const options = [
  
 
 export default function NewCollectionPage({ collection, collections, setCollections }) {
+  const isAdd = !collection
   const navigate = useNavigate();
   const [releaseDate, setReleaseDate] = useState("");
   const [isAgreementChecked, setIsAgreementChecked] = useState(false);
@@ -48,10 +49,16 @@ export default function NewCollectionPage({ collection, collections, setCollecti
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    addCollection({
-      ...formData,
-      releaseDate: releaseDate,
-    });
+    isAdd?
+      addCollection({
+        ...formData,
+        releaseDate: releaseDate,
+      })
+      :
+      updateCollection({
+        ...formData,
+        releaseDate: releaseDate,
+      });
     setFormData({
       imageUrl:"",
       title:"", 
@@ -80,6 +87,12 @@ export default function NewCollectionPage({ collection, collections, setCollecti
     navigate(`/${newCollection.user.name}/${newCollection.title}`);
   }
 
+  async function updateCollection(formData) {
+    const updatedCollection = await collectionsAPI.updateCollection(collection._id, formData);
+    console.log(updatedCollection);
+    setCollections(collections.map((c) => c._id === updatedCollection._id ? updatedCollection : c));
+    navigate(`/${updatedCollection.user.name}/${updatedCollection.title}`);
+  }
 
   return (
     <>
@@ -110,7 +123,7 @@ export default function NewCollectionPage({ collection, collections, setCollecti
             />
             <input 
               name="embed" 
-              selected={formData.embed} 
+              value={formData.embed} 
               onChange={handleChange} 
               placeholder="Embed Code" 
               autoComplete="off"
