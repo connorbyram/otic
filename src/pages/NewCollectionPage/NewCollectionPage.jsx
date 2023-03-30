@@ -3,8 +3,8 @@ import CollectionForm from '../../components/CollectionForm/CollectionForm'
 import './NewCollectionPage.css'
 // import * as collectionsAPI from '../../utilities/collections-api';
 
-export default function NewCollectionPage({addCollection, collection}) {
+export default function NewCollectionPage({ collection, collections, setCollections }) {
   return (
-    <CollectionForm addCollection={addCollection} collection={collection} />
+    <CollectionForm collection={collection} collections={collections} setCollections={setCollections} />
   );
 }

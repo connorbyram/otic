@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
 import * as collectionsAPI from '../../utilities/collections-api';
 import CollectionForm from '../../components/CollectionForm/CollectionForm'
 import "./CollectionPage.css"

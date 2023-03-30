@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 import * as collectionsAPI from '../../utilities/collections-api'
 import './App.css';
@@ -11,16 +11,8 @@ import NewCollectionPage from '../NewCollectionPage/NewCollectionPage';
 
 
 export default function App() {
-  const navigate = useNavigate();
   const [user, setUser] = useState(getUser());
   const [collections, setCollections] = useState([]);
-
-  async function addCollection(collection) {
-    const newCollection = await collectionsAPI.create(collection);
-    console.log(newCollection);
-    setCollections([newCollection, ...collections]);
-    navigate(`/${newCollection.user.name}/${newCollection.title}`);
-  }
 
   useEffect(function() {
     async function getCollections() {
@@ -30,8 +22,7 @@ export default function App() {
     getCollections()
   }, [])
 
-
-
+  
   return (
     <main className="App">
       { user ?
@@ -39,8 +30,8 @@ export default function App() {
             <NavBar user={user} setUser={setUser} />
             <Routes>
               {/* Route components in here */}
-              <Route path="/" element={<LandingPage collections={collections} />} />
-              <Route path="/new_collection" element={<NewCollectionPage addCollection={addCollection} />} />
+              <Route path="/" element={<LandingPage collections={collections} setCollections={setCollections} />} />
+              <Route path="/new_collection" element={<NewCollectionPage collections={collections} setCollections={setCollections} />} />
               <Route path="/:userName/:collectionTitle" element={<CollectionPage collections={collections} user={user} setCollections={setCollections}/>} />
               {/* <Route path="/collections/favorites" element={<LandingPage collections={collections} />} /> */}
             </Routes>

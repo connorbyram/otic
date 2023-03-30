@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../../pages/NewCollectionPage/NewCollectionPage.css'
-// import * as collectionsAPI from '../../utilities/collections-api';
+import * as collectionsAPI from '../../utilities/collections-api';
 
 const options = [
   'Alternative',
@@ -32,7 +32,7 @@ const options = [
 ] 
  
 
-export default function NewCollectionPage({ addCollection, collection }) {
+export default function NewCollectionPage({ collection, collections, setCollections }) {
   const navigate = useNavigate();
   const [releaseDate, setReleaseDate] = useState("");
   const [isAgreementChecked, setIsAgreementChecked] = useState(false);
@@ -72,6 +72,14 @@ export default function NewCollectionPage({ addCollection, collection }) {
       setIsAgreementChecked(evt.target.checked);
     }
   }
+
+  async function addCollection(collection) {
+    const newCollection = await collectionsAPI.create(collection);
+    console.log(newCollection);
+    setCollections([newCollection, ...collections]);
+    navigate(`/${newCollection.user.name}/${newCollection.title}`);
+  }
+
 
   return (
     <>
