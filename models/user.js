@@ -5,7 +5,20 @@ const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 6;
 
 const userSchema = new Schema({
-  name: {type: String, required: true},
+  name: {
+    type: String,
+    unique: true, 
+    required: true,
+    trim: true,
+    validate: {
+      validator: function(v) {
+        return mongoose.model('User', userSchema).findOne({ name: { $regex: new RegExp(`^${v}$`, 'i') } })
+          .then(user => !user)
+          .catch(() => false);
+      },
+      message: props => `${props.value} is already taken.`
+    }
+  },
   email: {
     type: String,
     unique: true,

@@ -5,7 +5,6 @@ export default function LandingPage({ collections }) {
 
   return (
     <>
-      <h1>LandingPage</h1>
       <section>
         <div className='container'>
           <div className='tile-grid'>
