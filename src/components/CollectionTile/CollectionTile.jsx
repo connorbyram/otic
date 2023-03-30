@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function CollectionTile({ collection }) {
 
     return (
-        <Link to={`/collections/${collection._id}`}>
+        <Link to={`/${collection.user.name}/${collection.title}`}>
             <img src={collection.imageUrl} alt="collection art" />
             <div className='flex-vert'>
                 <h3>{collection.title}</h3>

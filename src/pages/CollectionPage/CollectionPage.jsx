@@ -8,12 +8,12 @@ import "./CollectionPage.css"
 export default function CollectionPage({collections, setCollections, user}) {
     const navigate = useNavigate();
     const [edit, setEdit] = useState(false);
-    let { id } = useParams();
-    let collection = collections.find((c) => c._id === id);
+    let { userName, collectionTitle } = useParams();
+    let collection = collections.find((c) => c.user.name === userName && c.title === collectionTitle);
 
 
     async function handleDeleteCollection(id) {
-        const deletedCollection = await collectionsAPI.deleteCollection(id);
+        await collectionsAPI.deleteCollection(id);
         const remainingCollections = collections.filter((collection) => collection._id !== id);
         setCollections(remainingCollections);
         navigate('/');
