@@ -19,7 +19,7 @@ export default function App() {
     const newCollection = await collectionsAPI.create(collection);
     console.log(newCollection);
     setCollections([newCollection, ...collections]);
-    navigate(`/collections/${newCollection._id}`);
+    navigate(`/${newCollection.user.name}/${newCollection.title}`);
   }
 
   useEffect(function() {

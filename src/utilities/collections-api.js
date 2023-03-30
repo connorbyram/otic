@@ -16,6 +16,6 @@ export async function deleteCollection(id) {
   return sendRequest(`${BASE_URL}/${id}`, 'DELETE')
 }
 
-export async function updateCollection(id, formData) {
+export async function updateCollection(userName, id, formData) {
   return sendRequest(`${BASE_URL}/${id}`, 'PUT', formData)
 }

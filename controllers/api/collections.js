@@ -36,7 +36,14 @@ async function deleteCollection(req, res) {
 }
 
 async function update(req, res) {
-    await Collection.findByIdAndUpdate({_id: req.params.id}, req.body);
-    const updateCollection = await Collection.find({user: req.user._id});
-    res.json(updateCollection)
+    try{
+        const updatedCollection = await Collection.findOneAndUpdate(
+            {_id: req.params.id, user: req.user._id},
+            req.body,
+            {new: true},
+            res.json(updatedCollection)
+        );
+    } catch (err) {
+        console.log(err.message);
+    }
 }
