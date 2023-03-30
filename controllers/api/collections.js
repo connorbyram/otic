@@ -36,7 +36,6 @@ async function deleteCollection(req, res) {
 }
 
 async function update(req, res) {
-    console.log(req.body, req.params.id);
     try{
         const updatedCollection = await Collection.findOneAndUpdate(
             {_id: req.params.id, user: req.user._id},
