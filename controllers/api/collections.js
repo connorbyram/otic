@@ -1,10 +1,13 @@
-const Collection = require('../../models/collection')
+const uploadFile = require('../../config/upload-file');
+const Image = require('../../models/image');
+const Collection = require('../../models/collection');
 
 module.exports = {
     index,
     create,
     delete: deleteCollection,
-    update
+    update,
+    upload
 }
 
 async function index(req, res) {
@@ -31,12 +34,20 @@ async function create(req, res) {
 }
 
 async function deleteCollection(req, res) {
+    const collection = await Collection.findById(req.params.id);
+    await Image.findOneAndDelete(
+        {url: collection.imageUrl}
+    );
     const removeCollection = await Collection.findOneAndDelete({_id: req.params.id, user: req.user._id});
     res.json(removeCollection)
 }
 
 async function update(req, res) {
     try{
+        const collection = await Collection.findById(req.params.id);
+        await Image.findOneAndDelete(
+            {url: collection.imageUrl}
+        );
         const updatedCollection = await Collection.findOneAndUpdate(
             {_id: req.params.id, user: req.user._id},
             req.body,
@@ -47,4 +58,27 @@ async function update(req, res) {
     } catch (err) {
         console.log(err.message);
     }
+}
+
+async function upload(req, res) {
+    try {
+        console.log('upload');
+        if (req.file) {
+          // TODO: Remove the console.log after you've verified the output
+          console.log(req.file);
+          // The uploadFile function will return the uploaded file's S3 endpoint
+          const imageURL = await uploadFile(req.file);
+          const imageDoc = await Image.create({
+            url: imageURL,
+            // As usual, other inputs sent with the file are available on req.body
+            title: req.body.title
+          });
+          res.json(imageDoc);
+        } else {
+          throw new Error('Must select a file');
+        }
+      } catch (err) {
+        res.status(400).json(err.message);
+      }
+     
 }

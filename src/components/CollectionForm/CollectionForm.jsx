@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../pages/NewCollectionPage/NewCollectionPage.css"
 import * as collectionsAPI from "../../utilities/collections-api";
+import './CollectionForm.css';
 
 const options = [
   'Alternative',
@@ -33,6 +34,8 @@ const options = [
 export default function NewCollectionPage({ collection, collections, setCollections }) {
   const isAdd = !collection
   const navigate = useNavigate();
+  const fileInputRef = useRef();
+  const [image, setImage] = useState(null);
   const [isAgreementChecked, setIsAgreementChecked] = useState(false);
   const [formData, setFormData] = useState({
     imageUrl:collection ? collection.imageUrl : "",
@@ -44,12 +47,18 @@ export default function NewCollectionPage({ collection, collections, setCollecti
     agreement: false
   });
 
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
+    const imageData = new FormData();
+    imageData.append('image', fileInputRef.current.files[0]);
+    const newImage = await collectionsAPI.uploadImage(imageData);
+    formData.imageUrl = newImage.url;
+    setImage(image);
     isAdd?
       addCollection(formData)
       :
       updateCollection(formData);
+    fileInputRef.current.value = '';
     setFormData({
       imageUrl:"",
       title:"", 
@@ -87,12 +96,12 @@ export default function NewCollectionPage({ collection, collections, setCollecti
       <section>
         <div className="container">
           <form className="NewCollectionForm" onSubmit={handleSubmit}>
+            <label>Upload Cover Art:</label>
             <input 
-              name="imageUrl" 
-              value={formData.imageUrl} 
-              onChange={handleChange} 
-              placeholder="Cover URL" 
-              autoComplete="off"
+              type="file"
+              name="image"
+              ref={fileInputRef}
+              accept="image/*"
             />
             <input 
               name="title" 
@@ -105,7 +114,6 @@ export default function NewCollectionPage({ collection, collections, setCollecti
               type="date" 
               name="releaseDate"
               value={formData.releaseDate ? formData.releaseDate.slice(0,10) : ''} 
-              defaultValue={collection ? collection.releaseDate.slice(0,10) : ""}
               onChange={handleChange} 
             />
             <input 

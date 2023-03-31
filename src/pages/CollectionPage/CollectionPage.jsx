@@ -38,9 +38,9 @@ export default function CollectionPage({ collections, setCollections, user }) {
                             <div className="collection-info">
                                 <div className="collection-cover">
                                     <img src={collection.imageUrl} alt="collection art" />
-                                    {user._id === collection.user._id?
+                                    {user._id === collection.user._id ?
                                         <div className="menu">
-                                            <button className='hamburger' onClick={() => setShowMenu(!showMenu)}><img src={process.env.PUBLIC_URL + '/images/menu.png'}></img></button>
+                                            <button className='hamburger' onClick={() => setShowMenu(!showMenu)}><img src={process.env.PUBLIC_URL + '/images/menu.png'} alt="menu button"></img></button>
                                             { showMenu ?
                                                 <div className='controls'>
                                                     <button className='edit-btn' onClick={() => {setEdit(!edit); setShowMenu(false)}}>Edit</button>

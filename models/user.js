@@ -8,8 +8,8 @@ const userSchema = new Schema({
   name: {
     type: String,
     unique: true, 
-    required: true,
     trim: true,
+    required: true,
     validate: {
       validator: function(v) {
         return mongoose.model('User', userSchema).findOne({ name: { $regex: new RegExp(`^${v}$`, 'i') } })

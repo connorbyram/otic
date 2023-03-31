@@ -16,3 +16,9 @@ export async function deleteCollection(id) {
 export async function updateCollection(id, formData) {
   return sendRequest(`${BASE_URL}/${id}`, 'PUT', formData)
 }
+
+export function uploadImage(imageData) {
+  // See refactored sendRequest function that now accepts a 4th arg
+  // used to specify that the payload is a FormData object
+  return sendRequest(`${BASE_URL}/upload`, 'POST', imageData, true);
+}

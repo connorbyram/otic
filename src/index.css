@@ -59,9 +59,15 @@ p {
   font-size: 18px;
   text-align: left;
 }
+.error-message {
+  color: #FD3721;
+  font-weight: 800;
+  word-spacing: 3px;
+}
 
 button {
   all: unset;
+  margin-bottom: 15px;
   display: inline-block;
   padding: 12px 20px;
   font-size: 18px;
@@ -70,6 +76,7 @@ button {
   background-color: black;
   cursor: pointer;
 }
+
 button:disabled {
   opacity: 75%;
   cursor: not-allowed;

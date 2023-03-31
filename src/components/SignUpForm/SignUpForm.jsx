@@ -27,10 +27,14 @@ export default class SignUpForm extends Component {
       // in the payload of the JSON Web Token (JWT)
       const user = await signUp(formData);
       this.props.setUser(user);
-    } catch {
-      // An error occurred
-      // Probably due to a duplicate email
-      this.setState({ error: 'Sign Up Failed - Try Again' });
+    } catch (err) {
+      console.log(err);
+      const errorString = JSON.stringify(err);
+      if (errorString.includes('name')) {
+        this.setState({error: `The name "${this.state.name}" is already taken`});
+      } else if (errorString.includes('email')) {
+        this.setState({ error: `The email "${this.state.email}" is already taken`});
+      }
     }
   };
 
@@ -51,7 +55,7 @@ export default class SignUpForm extends Component {
             <button type="submit" disabled={disable}>SIGN UP</button>
           </form>
         </div>
-        <p className="error-message">&nbsp;{this.state.error}</p>
+        <p className="error-message">{this.state.error}</p>
       </div>
     );
   }
