@@ -1,4 +1,5 @@
 const uploadFile = require('../../config/upload-file');
+const deleteFile = require('../../config/delete-file');
 const Image = require('../../models/image');
 const Collection = require('../../models/collection');
 
@@ -35,9 +36,15 @@ async function create(req, res) {
 
 async function deleteCollection(req, res) {
     const collection = await Collection.findById(req.params.id);
-    await Image.findOneAndDelete(
-        {url: collection.imageUrl}
-    );
+
+    // Delete image from S3
+    const image = await Image.findOne({url: collection.imageUrl});
+    console.log(`Deleting image with URL: ${image.url}`);
+    await deleteFile(image.url);
+
+    // Delete image from MongoDB
+    await Image.findOneAndDelete({url: collection.imageUrl});
+
     const removeCollection = await Collection.findOneAndDelete({_id: req.params.id, user: req.user._id});
     res.json(removeCollection)
 }
