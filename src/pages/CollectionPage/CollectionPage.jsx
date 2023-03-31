@@ -6,7 +6,9 @@ import "./CollectionPage.css"
 
 export default function CollectionPage({ collections, setCollections, user }) {
     const navigate = useNavigate();
+    const [showMenu, setShowMenu] = useState(false);
     const [edit, setEdit] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
     const [collection, setCollection] = useState(null);
     const { userName, collectionTitle } = useParams();
     
@@ -27,8 +29,7 @@ export default function CollectionPage({ collections, setCollections, user }) {
 
     return (
         <>
-            
-            { !edit? 
+            { !edit ? 
                 <section>
                     <div className="container">
                         <div className="flex">
@@ -36,18 +37,26 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                 <div className="collection-cover">
                                     <img src={collection.imageUrl} alt="collection art" />
                                     {user._id === collection.user._id?
-                                        <div className="controls">
-                                            <button onClick={() => setEdit(!edit)}>Edit</button>
-                                            <button onClick={() => handleDeleteCollection(collection._id)}>Delete</button>
+                                        <div className="menu">
+                                            <button className='hamburger' onClick={() => setShowMenu(!showMenu)}><img src={process.env.PUBLIC_URL + '/images/menu.png'}></img></button>
+                                            { showMenu ?
+                                                <div className='controls'>
+                                                    <button className='edit-btn' onClick={() => {setEdit(!edit); setShowMenu(false)}}>Edit</button>
+                                                    <button className='delete-btn' onClick={() => setConfirmDelete(!confirmDelete)}>Delete</button>
+                            
+                                                </div>
+                                                :
+                                                <></>
+                                            }
                                         </div>
                                         :
                                         <></>
                                     }
                                 </div>
-                                <div>
+                                <div className='flex-vert'>
                                     <h1>{collection.title}</h1>
-                                    <h2> by {collection && collection.user.name}</h2>
-                                    <h3>{collection.releaseDate}</h3>
+                                    <h2>by {collection.user.name}</h2>
+                                    <p>{collection.notes}</p>
                                 </div>
                             </div>
                             <div className="collection-player">
@@ -58,6 +67,18 @@ export default function CollectionPage({ collections, setCollections, user }) {
                             </div>
                         </div>
                     </div>
+                    { confirmDelete ?
+                        <div className='confirm-delete'>
+                            <div>
+                                <h2>Are you sure you want to delete your collection?</h2>
+                                <p>This action cannot be undone. Your collection will be immediately deleted from our database.</p>
+                                <button className='back' onClick={() => {setConfirmDelete(false); setShowMenu(false)} }>Take Me Back!</button>
+                                <button className='confirm-delete-btn' onClick={() => handleDeleteCollection(collection._id)}>Delete Collection</button>   
+                            </div>
+                        </div>
+                        :
+                        <></>
+                    }
                 </section>
                 :
                 <>

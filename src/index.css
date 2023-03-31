@@ -44,6 +44,14 @@ h4 {
   all: unset;
   font-size: 18px;
   text-align: left;
+  color: grey;
+}
+
+h5 {
+  all: unset;
+  font-size: 12px;
+  font-weight: 700;
+  color: grey;
 }
 
 p {
