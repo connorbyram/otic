@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "react-datepicker/dist/react-datepicker.css";
 import "../../pages/NewCollectionPage/NewCollectionPage.css"
 import * as collectionsAPI from "../../utilities/collections-api";
 
@@ -73,14 +72,12 @@ export default function NewCollectionPage({ collection, collections, setCollecti
 
   async function addCollection(collection) {
     const newCollection = await collectionsAPI.create(collection);
-    console.log(newCollection);
     setCollections([newCollection, ...collections]);
     navigate(`/${newCollection.user.name}/${newCollection.title}`);
   }
 
   async function updateCollection(formData) {
     const updatedCollection = await collectionsAPI.updateCollection(collection._id, formData);
-    console.log(updatedCollection);
     setCollections(collections.map((c) => c._id === updatedCollection._id ? updatedCollection : c));
     navigate(`/${updatedCollection.user.name}/${updatedCollection.title}`);
   }
