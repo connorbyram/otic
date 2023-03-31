@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import * as collectionsAPI from '../../utilities/collections-api';
-import CollectionForm from '../../components/CollectionForm/CollectionForm'
-import "./CollectionPage.css"
+import CollectionForm from '../../components/CollectionForm/CollectionForm';
+import CollectionTile from '../../components/CollectionTile/CollectionTile';
+import "./CollectionPage.css";
 
 export default function CollectionPage({ collections, setCollections, user }) {
     const navigate = useNavigate();
@@ -11,6 +12,7 @@ export default function CollectionPage({ collections, setCollections, user }) {
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [collection, setCollection] = useState(null);
     const { userName, collectionTitle } = useParams();
+    const currentPage = collection;
     
     useEffect(function() {
         const collection = collections.find((c) => c.user.name === userName && c.title === collectionTitle);
@@ -64,6 +66,22 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                     title={collection.title}
                                     src={`https://bandcamp.com/EmbeddedPlayer/album=${collection.embed}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/`} seamless>
                                 </iframe>
+                                <h2>Other Collections:</h2>
+                                <div className='tile-grid'>
+                                    {collections.map((collection) => {
+                                        return (
+                                            <>
+                                                {currentPage.user.name === collection.user.name && currentPage.title !== collection.title  ?
+                                                <>
+                                                    <CollectionTile collection={collection} key={collection._id} collections={collections}/> 
+                                                </>
+                                                :
+                                                <></>
+                                                }
+                                            </>
+                                        );
+                                    })}
+                                </div>
                             </div>
                         </div>
                     </div>
