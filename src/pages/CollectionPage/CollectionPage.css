@@ -11,10 +11,6 @@
     align-items: left;
 }
 
-img {
-    max-height: 75vh;
-}
-
 .collection-info > div {
     margin-top: 10px;
     display: flex;
@@ -35,7 +31,13 @@ iframe {
 }
 
 .collection-cover {
+    width: fit-content;
     position: relative;
+}
+
+.collection-cover img {
+    max-width: 65vmin;
+    max-height: 65vmin;
 }
 
 .controls {

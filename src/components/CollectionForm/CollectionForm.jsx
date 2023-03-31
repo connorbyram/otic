@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../pages/NewCollectionPage/NewCollectionPage.css"
 import * as collectionsAPI from "../../utilities/collections-api";
@@ -35,30 +34,23 @@ const options = [
 export default function NewCollectionPage({ collection, collections, setCollections }) {
   const isAdd = !collection
   const navigate = useNavigate();
-  const [releaseDate, setReleaseDate] = useState("");
   const [isAgreementChecked, setIsAgreementChecked] = useState(false);
   const [formData, setFormData] = useState({
-    imageUrl:collection? collection.imageUrl : "",
-    title: collection? collection.title : "", 
-    releaseDate: collection? collection.releaseDate : "", 
-    embed: collection? collection.embed : "", 
-    notes: collection? collection.notes : "", 
-    genre: collection? collection.genre : "",
+    imageUrl:collection ? collection.imageUrl : "",
+    title: collection ? collection.title : "", 
+    releaseDate: collection ? collection.releaseDate : "", 
+    embed: collection ? collection.embed : "", 
+    notes: collection ? collection.notes : "", 
+    genre: collection ? collection.genre : "",
     agreement: false
   });
 
   function handleSubmit(evt) {
     evt.preventDefault();
     isAdd?
-      addCollection({
-        ...formData,
-        releaseDate: releaseDate,
-      })
+      addCollection(formData)
       :
-      updateCollection({
-        ...formData,
-        releaseDate: releaseDate,
-      });
+      updateCollection(formData);
     setFormData({
       imageUrl:"",
       title:"", 
@@ -68,7 +60,6 @@ export default function NewCollectionPage({ collection, collections, setCollecti
       genre:"",
       agreement:false
     });
-    setReleaseDate("");
     navigate('/');
   }
 
@@ -113,13 +104,12 @@ export default function NewCollectionPage({ collection, collections, setCollecti
               placeholder="Title"
               autoComplete="off" 
             />
-            <DatePicker 
-              className="date"
-              name="releaseDate" 
-              selected={releaseDate} 
-              onChange={(date) => setReleaseDate(date)} 
-              placeholderText="Release Date"
-              autoComplete="off" 
+            <input
+              type="date" 
+              name="releaseDate"
+              value={formData.releaseDate ? formData.releaseDate.slice(0,10) : ''} 
+              defaultValue={collection ? collection.releaseDate.slice(0,10) : ""}
+              onChange={handleChange} 
             />
             <input 
               name="embed" 
@@ -128,7 +118,6 @@ export default function NewCollectionPage({ collection, collections, setCollecti
               placeholder="Embed Code" 
               autoComplete="off"
             />
-            
             <select name="genre" value={formData.genre} onChange={handleChange}>
               <option value="" disabled>Select genre...</option>
               { options.map(function(option, idx) {

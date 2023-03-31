@@ -47,6 +47,7 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                 <div>
                                     <h1>{collection.title}</h1>
                                     <h2> by {collection && collection.user.name}</h2>
+                                    <h3>{collection.releaseDate}</h3>
                                 </div>
                             </div>
                             <div className="collection-player">

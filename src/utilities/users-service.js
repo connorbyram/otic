@@ -6,9 +6,18 @@
 import * as usersAPI from './users-api';
 
 export async function signUp(userData) {
-  const token = await usersAPI.signUp(userData);
-  localStorage.setItem('token', token);
-  return getUser();
+  try {
+    const token = await usersAPI.signUp(userData);
+    localStorage.setItem('token', token);
+    return getUser();
+  } catch (err) {
+    // If the error response has a message property, display it in the UI
+    if (err.response && err.response.message) {
+      throw new Error(err.response.message);
+    }
+    // Otherwise, re-throw the error
+    throw err;
+  }
 }
 
 export async function login(credentials) {
