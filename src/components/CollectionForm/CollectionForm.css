@@ -4,3 +4,7 @@ label {
     font-size: 18px;
 
 }
+form img{
+    width: 65vmin;
+    height: 65vmin;
+}

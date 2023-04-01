@@ -37,31 +37,35 @@ async function create(req, res) {
 async function deleteCollection(req, res) {
     const collection = await Collection.findById(req.params.id);
 
-    // Delete image from S3
-    const image = await Image.findOne({url: collection.imageUrl});
-    console.log(`Deleting image with URL: ${image.url}`);
+    // Delete image from S3 & MongoDB
+    const image = await Image.findOneAndDelete({url: collection.imageUrl});
     await deleteFile(image.url);
-
-    // Delete image from MongoDB
-    await Image.findOneAndDelete({url: collection.imageUrl});
 
     const removeCollection = await Collection.findOneAndDelete({_id: req.params.id, user: req.user._id});
     res.json(removeCollection)
 }
 
 async function update(req, res) {
-    try{
+    try {
         const collection = await Collection.findById(req.params.id);
-        await Image.findOneAndDelete(
-            {url: collection.imageUrl}
-        );
+
+        // Get the old image URL from the database
+        const oldImageUrl = collection.imageUrl;
+
+        // Update the collection
         const updatedCollection = await Collection.findOneAndUpdate(
-            {_id: req.params.id, user: req.user._id},
+            { _id: req.params.id, user: req.user._id },
             req.body,
-            {new: true},
-        );
-        await updatedCollection.populate('user');
-        res.json(updatedCollection)
+            { new: true }
+        ).populate('user');
+
+        // Delete the old image if the new image URL is different
+        if (oldImageUrl !== updatedCollection.imageUrl) {
+            await deleteFile(oldImageUrl);
+            await Image.findOneAndDelete({ url: oldImageUrl });
+        }
+
+        res.json(updatedCollection);
     } catch (err) {
         console.log(err.message);
     }

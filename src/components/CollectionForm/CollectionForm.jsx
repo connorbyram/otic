@@ -49,8 +49,10 @@ export default function NewCollectionPage({ collection, collections, setCollecti
 
   async function handleSubmit(evt) {
     evt.preventDefault();
+
     const imageData = new FormData();
     imageData.append('image', fileInputRef.current.files[0]);
+    
     const newImage = await collectionsAPI.uploadImage(imageData);
     formData.imageUrl = newImage.url;
     setImage(image);
@@ -96,6 +98,9 @@ export default function NewCollectionPage({ collection, collections, setCollecti
       <section>
         <div className="container">
           <form className="NewCollectionForm" onSubmit={handleSubmit}>
+            {collection && collection.imageUrl && (
+              <img src={collection.imageUrl} alt="Current cover art" />
+            )}
             <label>Upload Cover Art:</label>
             <input 
               type="file"
@@ -103,6 +108,10 @@ export default function NewCollectionPage({ collection, collections, setCollecti
               ref={fileInputRef}
               accept="image/*"
             />
+            {isAdd && (
+              <>
+              </>
+            )}
             <input 
               name="title" 
               value={formData.title} 
