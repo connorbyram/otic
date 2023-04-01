@@ -7,7 +7,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    /* border: solid 1px black; */
     align-items: left;
 }
 .column text {
@@ -15,6 +14,7 @@
 } 
 
 #left {
+    position: relative;
     width: fit-content;
     margin-right: 30px;
 }
@@ -29,7 +29,7 @@ Link {
 }
 
 .cover-art {
-    margin-bottom: 75px;
+    margin-bottom: 100px;
     display: block;
     width: 70vmin;
     height: 70vmin;
@@ -132,6 +132,7 @@ border-radius: 8px;
 }
 
 .other-collections {
+    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 250px));
     column-gap: 5%;
