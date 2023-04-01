@@ -1,44 +1,47 @@
 .flex {
     width: 100%;
     display: flex;
-    justify-content: space-between;
 }
 
-.collection-info {
+.column {
     display: flex;
     flex-direction: column;
-    justify-content: left;
+    width: 100%;
+    /* border: solid 1px black; */
     align-items: left;
 }
+.column text {
+    text-align: left;
+} 
 
-.collection-info > div {
-    margin-top: 10px;
-    display: flex;
-    align-items: baseline;
-    justify-content: left;
-    gap: 20px;
+#left {
+    width: fit-content;
+    margin-right: 30px;
 }
 
-.collection-player {
-    width: 100%;
-    padding: 0 0 0 20px;
+.fit-content {
+    width: fit-content;
+    background-color: aqua;
 }
+
+Link {
+    background-color: aqua;
+}
+
+.cover-art {
+    margin-bottom: 75px;
+    display: block;
+    width: 70vmin;
+    height: 70vmin;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.2);
+}
+
 iframe {
     padding-top: 10px;
     margin-bottom: 50px;
     border: 0;
     width: 100%;
     height: 241px;
-}
-
-.collection-cover {
-    width: fit-content;
-    position: relative;
-}
-
-.collection-cover img {
-    width: 70vmin;
-    height: 70vmin;
 }
 
 .menu {
@@ -126,4 +129,11 @@ border-radius: 8px;
 .confirm-delete-btn:hover {
     background-color: red;
     color: black;
+}
+
+.other-collections {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 250px));
+    column-gap: 5%;
+
 }

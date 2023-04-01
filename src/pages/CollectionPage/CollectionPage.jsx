@@ -28,6 +28,9 @@ export default function CollectionPage({ collections, setCollections, user }) {
 
     if (!collection) return null;
 
+    const otherCollections = collections.filter((c) => c.user.name === currentPage.user.name && c.title !== currentPage.title);
+    const hasOtherCollections = otherCollections.length > 0;
+
 
     return (
         <>
@@ -35,46 +38,30 @@ export default function CollectionPage({ collections, setCollections, user }) {
                 <section>
                     <div className="container">
                         <div className="flex">
-                            <div className="collection-info">
-                                <div className="collection-cover">
-                                    <img src={collection.imageUrl} alt="collection art" />
-                                    {user._id === collection.user._id ?
-                                        <div className="menu">
-                                            <button className='hamburger' onClick={() => setShowMenu(!showMenu)}><img src={process.env.PUBLIC_URL + '/images/menu.png'} alt="menu button"></img></button>
-                                            { showMenu ?
-                                                <div className='controls'>
-                                                    <button className='edit-btn' onClick={() => {setEdit(!edit); setShowMenu(false)}}>Edit</button>
-                                                    <button className='delete-btn' onClick={() => setConfirmDelete(!confirmDelete)}>Delete</button>
-                            
-                                                </div>
-                                                :
-                                                <></>
-                                            }
-                                        </div>
-                                        :
-                                        <></>
-                                    }
-                                </div>
-                                <div className='flex-vert'>
-                                    <h1>{collection.title}</h1>
-                                    <h2>by {collection.user.name}</h2>
-                                    <p>{collection.notes}</p>
-                                </div>
-                            </div>
-                            <div className="collection-player">
-                                <iframe 
-                                    title={collection.title}
-                                    src={`https://bandcamp.com/EmbeddedPlayer/album=${collection.embed}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/`} seamless>
-                                </iframe>
-                                <h2>Other Collections:</h2>
-                                <div className='tile-grid'>
+                            <div className="column" id="left">
+                                <img className='cover-art' src={collection.imageUrl} alt="collection art" />
+                                {user._id === collection.user._id ?
+                                    <div className="menu">
+                                        <button className='hamburger' onClick={() => setShowMenu(!showMenu)}><img src={process.env.PUBLIC_URL + '/images/menu.png'} alt="menu button"></img></button>
+                                        { showMenu ?
+                                            <div className='controls'>
+                                                <button className='edit-btn' onClick={() => {setEdit(!edit); setShowMenu(false)}}>Edit</button>
+                                                <button className='delete-btn' onClick={() => setConfirmDelete(!confirmDelete)}>Delete</button>
+                                            </div>
+                                            :
+                                            <></>
+                                        }
+                                    </div>
+                                    :
+                                    <></>
+                                }
+                                {hasOtherCollections && <h3>Other Collections:</h3>}
+                                <div className='other-collections'>
                                     {collections.map((collection) => {
                                         return (
                                             <>
                                                 {currentPage.user.name === collection.user.name && currentPage.title !== collection.title  ?
-                                                <>
                                                     <CollectionTile collection={collection} key={collection._id} collections={collections}/> 
-                                                </>
                                                 :
                                                 <></>
                                                 }
@@ -82,6 +69,17 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                         );
                                     })}
                                 </div>
+                            </div>
+                            <div className="column">
+                                <h1>{collection.title}</h1>
+                                <text>
+                                    <h2>{collection.user.name}</h2>
+                                    <h4>{new Date(collection.releaseDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</h4>
+                                </text>     
+                                <iframe 
+                                    title={collection.title}
+                                    src={`https://bandcamp.com/EmbeddedPlayer/album=${collection.embed}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/`} seamless>
+                                </iframe>
                             </div>
                         </div>
                     </div>
