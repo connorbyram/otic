@@ -108,10 +108,6 @@ export default function NewCollectionPage({ collection, collections, setCollecti
               ref={fileInputRef}
               accept="image/*"
             />
-            {isAdd && (
-              <>
-              </>
-            )}
             <input 
               name="title" 
               value={formData.title} 
