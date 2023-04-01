@@ -50,17 +50,16 @@ export default function NewCollectionPage({ collection, collections, setCollecti
   async function handleSubmit(evt) {
     evt.preventDefault();
 
-    const imageData = new FormData();
-    imageData.append('image', fileInputRef.current.files[0]);
-    
-    const newImage = await collectionsAPI.uploadImage(imageData);
-    formData.imageUrl = newImage.url;
-    setImage(image);
-    isAdd?
-      addCollection(formData)
-      :
-      updateCollection(formData);
-    fileInputRef.current.value = '';
+    if (isAdd) {
+      const imageData = new FormData();
+      imageData.append('image', fileInputRef.current.files[0]);
+      const newImage = await collectionsAPI.uploadImage(imageData);
+      formData.imageUrl = newImage.url;
+      setImage(image);
+      fileInputRef.current.value = '';
+    }
+
+    isAdd ? addCollection(formData) : updateCollection(formData);
     setFormData({
       imageUrl:"",
       title:"", 
@@ -88,7 +87,8 @@ export default function NewCollectionPage({ collection, collections, setCollecti
   }
 
   async function updateCollection(formData) {
-    const updatedCollection = await collectionsAPI.updateCollection(collection._id, formData);
+    const { imageUrl, ...collectionData } = formData;
+    const updatedCollection = await collectionsAPI.updateCollection(collection._id, collectionData);
     setCollections(collections.map((c) => c._id === updatedCollection._id ? updatedCollection : c));
     navigate(`/${updatedCollection.user.name}/${updatedCollection.title}`);
   }
@@ -101,13 +101,17 @@ export default function NewCollectionPage({ collection, collections, setCollecti
             {collection && collection.imageUrl && (
               <img src={collection.imageUrl} alt="Current cover art" />
             )}
-            <label>Upload Cover Art:</label>
-            <input 
-              type="file"
-              name="image"
-              ref={fileInputRef}
-              accept="image/*"
-            />
+            {!collection && (
+              <>
+                <label>Upload Cover Art:</label>
+                <input 
+                  type="file"
+                  name="image"
+                  ref={fileInputRef}
+                  accept="image/*"
+                />
+              </>
+            )}
             <input 
               name="title" 
               value={formData.title} 
