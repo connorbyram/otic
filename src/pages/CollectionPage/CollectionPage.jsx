@@ -80,6 +80,7 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                     title={collection.title}
                                     src={`https://bandcamp.com/EmbeddedPlayer/album=${collection.embed}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/`} seamless>
                                 </iframe>
+                                <p>{collection.notes}</p>
                             </div>
                         </div>
                     </div>

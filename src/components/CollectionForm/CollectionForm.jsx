@@ -37,6 +37,7 @@ export default function NewCollectionPage({ collection, collections, setCollecti
   const fileInputRef = useRef();
   const [image, setImage] = useState(null);
   const [isAgreementChecked, setIsAgreementChecked] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
   const [formData, setFormData] = useState({
     imageUrl:collection ? collection.imageUrl : "",
     title: collection ? collection.title : "", 
@@ -57,6 +58,7 @@ export default function NewCollectionPage({ collection, collections, setCollecti
       formData.imageUrl = newImage.url;
       setImage(image);
       fileInputRef.current.value = '';
+
     }
 
     isAdd ? addCollection(formData) : updateCollection(formData);
@@ -93,59 +95,78 @@ export default function NewCollectionPage({ collection, collections, setCollecti
     navigate(`/${updatedCollection.user.name}/${updatedCollection.title}`);
   }
 
+  function handlePreview(evt) {
+    const file = evt.target.files[0];
+    if (file) {
+      setPreviewImage(URL.createObjectURL(file));
+    }
+  };
+
   return (
     <>
       <section>
         <div className="container">
           <form className="NewCollectionForm" onSubmit={handleSubmit}>
-            {collection && collection.imageUrl && (
-              <img src={collection.imageUrl} alt="Current cover art" />
-            )}
-            {!collection && (
-              <>
-                <label>Upload Cover Art:</label>
+            <div className="flex">
+              <div className="column" id="left">
+                {collection && collection.imageUrl && (
+                  <img src={collection.imageUrl} alt="Current cover art" />
+                )}
+                {previewImage ? (
+                  <img src={previewImage} alt="Preview" />
+                ) : (
+                  <img src="/images/img.jpeg" alt="Preview" />
+                )}
+              </div>
+              <div className="column">
+                {!collection && (
+                  <>
+                    <label>Upload Cover Art:</label>
+                    <input 
+                      type="file"
+                      name="image"
+                      ref={fileInputRef}
+                      accept="image/*"
+                      onChange={handlePreview}
+                    />
+                  </>
+                )}
                 <input 
-                  type="file"
-                  name="image"
-                  ref={fileInputRef}
-                  accept="image/*"
+                  name="title" 
+                  value={formData.title} 
+                  onChange={handleChange} 
+                  placeholder="Title"
+                  autoComplete="off" 
                 />
-              </>
-            )}
-            <input 
-              name="title" 
-              value={formData.title} 
-              onChange={handleChange} 
-              placeholder="Title"
-              autoComplete="off" 
-            />
-            <input
-              type="date" 
-              name="releaseDate"
-              value={formData.releaseDate ? formData.releaseDate.slice(0,10) : ''} 
-              onChange={handleChange} 
-            />
-            <input 
-              name="embed" 
-              value={formData.embed} 
-              onChange={handleChange} 
-              placeholder="Embed Code" 
-              autoComplete="off"
-            />
-            <select name="genre" value={formData.genre} onChange={handleChange}>
-              <option value="" disabled>Select genre...</option>
-              { options.map(function(option, idx) {
-                return <option key={option} value={option}>{option}</option>
-              }) };
-            </select>
-            <textarea 
-              name="notes"
-              onChange={handleChange}  
-              id="" 
-              value={formData.notes} 
-              cols="30" rows="5"
-              placeholder="Notes"
-            />
+                <input
+                  type="date" 
+                  name="releaseDate"
+                  value={formData.releaseDate ? formData.releaseDate.slice(0,10) : ''} 
+                  onChange={handleChange} 
+                />
+                <input 
+                  name="embed" 
+                  value={formData.embed} 
+                  onChange={handleChange} 
+                  placeholder="Embed Code" 
+                  autoComplete="off"
+                />
+                <select name="genre" value={formData.genre} onChange={handleChange}>
+                  <option value="" disabled>Select genre...</option>
+                  { options.map(function(option, idx) {
+                    return <option key={option} value={option}>{option}</option>
+                  }) };
+                </select>
+                <textarea 
+                  name="notes"
+                  onChange={handleChange}  
+                  id="" 
+                  value={formData.notes} 
+                  cols="30" rows="5"
+                  placeholder="Notes"
+                />
+              </div>
+            </div>
             <div className="agreement">
               <input
                 type="checkbox"

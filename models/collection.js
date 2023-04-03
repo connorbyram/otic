@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const trackSchema = new Schema ({
+    title: {type: String, required: true},
+    url: {type: String, required: true},
+    number: {type: Number, require: true},
+});
+
 const collectionSchema = new Schema ({
     user: {
         type: Schema.Types.ObjectId,
@@ -16,7 +22,8 @@ const collectionSchema = new Schema ({
         type: String,
         required: true
     },
-    agreement: {type: Boolean, default: false}
+    agreement: {type: Boolean, default: false},
+    audio: [trackSchema],
 
 }, {
     timestamps: true,

@@ -7,4 +7,17 @@ label {
 form img{
     width: 65vmin;
     height: 65vmin;
+    object-fit: contain;
+}
+
+.agreement {
+    margin-top: 40px;
+}
+
+#preview {
+    width: 75vmin;
+    position: relative;
+    margin-right: 30px;
+    border: solid 1px black;
+    object-fit: contain;
 }

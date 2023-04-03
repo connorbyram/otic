@@ -22,3 +22,7 @@ export function uploadImage(imageData) {
   // used to specify that the payload is a FormData object
   return sendRequest(`${BASE_URL}/upload`, 'POST', imageData, true);
 }
+
+export function uploadTrack(trackData) {
+  return sendRequest(`${BASE_URL/uploadTrack}`, 'POST', trackData, true);
+}

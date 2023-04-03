@@ -8,7 +8,8 @@ module.exports = {
     create,
     delete: deleteCollection,
     update,
-    upload
+    upload,
+    uploadTrack
 }
 
 async function index(req, res) {
@@ -73,15 +74,10 @@ async function update(req, res) {
 
 async function upload(req, res) {
     try {
-        console.log('upload');
         if (req.file) {
-          // TODO: Remove the console.log after you've verified the output
-          console.log(req.file);
-          // The uploadFile function will return the uploaded file's S3 endpoint
           const imageURL = await uploadFile(req.file);
           const imageDoc = await Image.create({
             url: imageURL,
-            // As usual, other inputs sent with the file are available on req.body
             title: req.body.title
           });
           res.json(imageDoc);
@@ -93,3 +89,21 @@ async function upload(req, res) {
       }
      
 }
+
+async function uploadTrack(req, res) {
+    try {
+        if (req.file) {
+            const url = await uploadFile(req.file);
+            const trackDoc = await TrackEvent.create({
+                title: req.body.title,
+                url: url,
+                number: req.body.number,
+            });
+            res.json(trackDoc);
+        } else {
+            throw new Error('Must select a file');
+          }
+      } catch (err) {
+          res.status(400).json(err.message);
+      }
+  }
