@@ -92,7 +92,7 @@ async function upload(req, res) {
 
 async function uploadTrack(req, res) {
     try {
-        const collection = await Collection.findById(req.params.id);
+        const collection = await Collection.findById(req.params.id).populate('user');
         if (req.file) {
             console.log(req.file);
             const trackUrl = await uploadFile(req.file);

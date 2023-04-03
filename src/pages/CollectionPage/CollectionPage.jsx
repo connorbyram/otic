@@ -13,6 +13,8 @@ export default function CollectionPage({ collections, setCollections, user }) {
     const [edit, setEdit] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
+    const [tracks, setTracks] = useState([]);
+    const [track, setTrack] = useState(null);
     const { userName, collectionTitle } = useParams();
 
     const currentPage = collection;
@@ -20,7 +22,7 @@ export default function CollectionPage({ collections, setCollections, user }) {
     useEffect(function() {
         const collection = collections.find((c) => c.user.name === userName && c.title === collectionTitle);
         setCollection(collection);
-    }, [collections, collectionTitle, userName]);
+    }, [collections, collectionTitle, userName, track]);
 
     if (!collection) return null;
 
@@ -67,7 +69,12 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                     <h4>{new Date(collection.releaseDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</h4>
                                 </span>
                                 {user._id === collection.user._id &&  (
-                                    < AddTracksForm collection={collection} />
+                                    < AddTracksForm 
+                                        collection={collection} setCollections={setCollections} 
+                                        collections={collections}
+                                        tracks={tracks} setTracks={setTracks} 
+                                        setTrack={setTrack}
+                                    />
                                 )}     
                                 <iframe 
                                     title={collection.title}

@@ -1,14 +1,13 @@
-import { useState, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import * as collectionsAPI from "../../utilities/collections-api";
+import './AddTrackForm.css';
 
-export default function AddTracksForm({ collection }) {
+export default function AddTracksForm({ collection, collections, setCollections, tracks, setTracks, setTrack }) {
     const [title, setTitle] = useState('');
-    const [tracks, setTracks] = useState([]);
-
+    
+    const navigate = useNavigate ();
     const fileInputRef = useRef();
-    // const navigate = useNavigate();
-
 
     async function handleUpload(evt) {
       evt.preventDefault();
@@ -16,21 +15,28 @@ export default function AddTracksForm({ collection }) {
       const trackData = new FormData();
       trackData.append('title', title);
       trackData.append('track', fileInputRef.current.files[0]);
-      const newTrack = await collectionsAPI.uploadTrack(collection._id, trackData);
-      setTracks([...tracks, newTrack]);
+      const updatedCollection = await collectionsAPI.uploadTrack(collection._id, trackData);
+      setCollections(collections.map((c) => c._id === updatedCollection._id ? updatedCollection : c));
       setTitle('');
+      
       fileInputRef.current.value = '';
+      navigate(`/${updatedCollection.user.name}/${updatedCollection.title}`);
     };
+
+    // async function handleDeleteTrack(id) {
+    //   await collectionsAPI.deleteTrack(id);
+    //   const remainingTracks = collection.tracks.filter
+    // }
   
 
     return (
         <>
             {collection.tracks.map((track, idx) => {
               return (
-                <>
-                    <h3>{idx +1} {track.title}</h3>
+                <div className="track">
+                    <h3>{idx +1}. {track.title}</h3>
                     <button>Delete</button>
-                </>
+                </div>
               )
             })}
             <form onSubmit={handleUpload}>
