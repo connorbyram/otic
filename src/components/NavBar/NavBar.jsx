@@ -14,7 +14,7 @@ export default function NavBar({ user, setUser }) {
         <div className="nav-container">
           <Link to="/"><span>otic</span></Link>
           <div className="nav-links">
-            <Link to="/new_collection">Add Collection</Link>
+            {user.creator && <Link to="/new_collection">Add Collection</Link> }
             <Link to="" onClick={handleLogOut}>Log Out</Link>
           </div>
         </div>

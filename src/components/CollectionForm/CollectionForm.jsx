@@ -112,11 +112,11 @@ export default function NewCollectionPage({ collection, collections, setCollecti
                   <img src={collection.imageUrl} alt="Current cover art" />
                   :
                   <>
-                    {previewImage ? (
-                      <img src={previewImage} alt="Preview" />
-                    ) : (
-                      <img src="/images/img.jpeg" alt="Preview" />
-                    )}
+                    {previewImage ? 
+                      <img src={previewImage} alt="Previews" />
+                     : 
+                      <img src="/images/img.jpeg" alt="Previews" />
+                    }
                   </>
                 }
                 {!collection && (

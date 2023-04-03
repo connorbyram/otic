@@ -8,7 +8,7 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 router.get('/', collectionsCtrl.index);
 router.post('/', ensureLoggedIn, collectionsCtrl.create);
 router.post('/upload', upload.single('image'), collectionsCtrl.upload);
-router.post('/:id/track', upload.single('track'), ensureLoggedIn, collectionsCtrl.uploadTrack)
+router.post('/:id/uploadtrack', upload.single('track'), ensureLoggedIn, collectionsCtrl.uploadTrack)
 router.put('/:id', ensureLoggedIn, collectionsCtrl.update);
 router.delete('/:id', ensureLoggedIn, collectionsCtrl.delete);
 

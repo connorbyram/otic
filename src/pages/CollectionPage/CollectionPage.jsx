@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
+import React from 'react';
 import CollectionForm from '../../components/CollectionForm/CollectionForm';
 import CollectionTile from '../../components/CollectionTile/CollectionTile';
 import AddTracksForm from '../../components/AddTracksForm/AddTracksForm';
@@ -48,25 +49,25 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                 <div className='other-collections'>
                                     {collections.map((collection) => {
                                         return (
-                                            <>
+                                            <React.Fragment key={collection._id}>
                                                 {currentPage.user.name === collection.user.name && currentPage.title !== collection.title  ?
                                                     <CollectionTile collection={collection} key={collection._id} collections={collections}/> 
                                                 :
                                                 <></>
                                                 }
-                                            </>
+                                            </React.Fragment>
                                         );
                                     })}
                                 </div>
                             </div>
                             <div className="column">
                                 <h1>{collection.title}</h1>
-                                <text>
+                                <span>
                                     <h2>{collection.user.name}</h2>
                                     <h4>{new Date(collection.releaseDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</h4>
-                                </text>
-                                {user._id === collection.user._id && !collection.audio.length && (
-                                    < AddTracksForm />
+                                </span>
+                                {user._id === collection.user._id &&  (
+                                    < AddTracksForm collection={collection} />
                                 )}     
                                 <iframe 
                                     title={collection.title}

@@ -23,6 +23,6 @@ export function uploadImage(imageData) {
   return sendRequest(`${BASE_URL}/upload`, 'POST', imageData, true);
 }
 
-export function uploadTrack(trackData) {
-  return sendRequest(`${BASE_URL/uploadTrack}`, 'POST', trackData, true);
+export function uploadTrack(id, trackData) {
+  return sendRequest(`${BASE_URL}/${id}/uploadtrack`, 'POST', trackData, true);
 }

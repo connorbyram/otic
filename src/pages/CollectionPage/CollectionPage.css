@@ -28,6 +28,13 @@ Link {
     background-color: aqua;
 }
 
+span {
+    all: unset;
+    display: flex;
+    align-items: baseline;
+    justify-content: left;
+}
+
 .cover-art {
     margin-bottom: 100px;
     display: block;
