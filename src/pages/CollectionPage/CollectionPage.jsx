@@ -68,7 +68,7 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                     <h2>{collection.user.name}</h2>
                                     <h4>{new Date(collection.releaseDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</h4>
                                 </span>
-                                {user._id === collection.user._id &&  (
+                                {user._id === collection.user._id && user.creator && (
                                     < AddTracksForm 
                                         collection={collection} setCollections={setCollections} 
                                         collections={collections}
