@@ -58,7 +58,6 @@ export default function NewCollectionPage({ collection, collections, setCollecti
       formData.imageUrl = newImage.url;
       setImage(image);
       fileInputRef.current.value = '';
-
     }
 
     isAdd ? addCollection(formData) : updateCollection(formData);
@@ -109,7 +108,7 @@ export default function NewCollectionPage({ collection, collections, setCollecti
           <form className="NewCollectionForm" onSubmit={handleSubmit}>
             <div className="flex">
               <div className="column" id="left">
-                {collection && collection.imageUrl ? 
+                {collection && !previewImage ? 
                   <img src={collection.imageUrl} alt="Current cover art" />
                   :
                   <>

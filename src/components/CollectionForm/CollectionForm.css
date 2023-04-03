@@ -7,8 +7,8 @@ label {
 
 form img{
     margin-bottom: 20px;
-    width: 65vmin;
-    height: 65vmin;
+    width: 70vmin;
+    height: 70vmin;
     object-fit: contain;
 }
 
@@ -20,7 +20,6 @@ form img{
 }
 
 #preview {
-    width: 75vmin;
     position: relative;
     margin-right: 30px;
     border: solid 1px black;

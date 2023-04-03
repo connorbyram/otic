@@ -61,10 +61,10 @@ async function update(req, res) {
         ).populate('user');
 
         // Delete the old image if the new image URL is different
-        if (oldImageUrl !== updatedCollection.imageUrl) {
-            await deleteFile(oldImageUrl);
-            await Image.findOneAndDelete({ url: oldImageUrl });
-        }
+        // if (oldImageUrl !== updatedCollection.imageUrl) {
+        //     await deleteFile(oldImageUrl);
+        //     await Image.findOneAndDelete({ url: oldImageUrl });
+        // }
 
         res.json(updatedCollection);
     } catch (err) {
@@ -94,12 +94,14 @@ async function uploadTrack(req, res) {
     try {
         if (req.file) {
             const url = await uploadFile(req.file);
-            const trackDoc = await TrackEvent.create({
+            const track = {
                 title: req.body.title,
                 url: url,
                 number: req.body.number,
-            });
-            res.json(trackDoc);
+            };
+            const collection = await Collection.findById(req.body.collectionId);
+            collection.audio.push(track)
+            res.json(track);
         } else {
             throw new Error('Must select a file');
           }
