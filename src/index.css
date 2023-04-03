@@ -64,6 +64,7 @@ p {
   font-size: 18px;
   text-align: left;
 }
+
 .error-message {
   color: #FD3721;
   font-weight: 800;
@@ -72,6 +73,7 @@ p {
 
 button {
   all: unset;
+  width: fit-content;
   margin-bottom: 15px;
   display: inline-block;
   padding: 12px 20px;

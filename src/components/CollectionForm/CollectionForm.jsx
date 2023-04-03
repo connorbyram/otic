@@ -31,7 +31,7 @@ const options = [
 ] 
  
 
-export default function NewCollectionPage({ collection, collections, setCollections }) {
+export default function NewCollectionPage({ collection, collections, setCollections, edit, setEdit }) {
   const isAdd = !collection
   const navigate = useNavigate();
   const fileInputRef = useRef();
@@ -109,16 +109,17 @@ export default function NewCollectionPage({ collection, collections, setCollecti
           <form className="NewCollectionForm" onSubmit={handleSubmit}>
             <div className="flex">
               <div className="column" id="left">
-                {collection && collection.imageUrl && (
+                {collection && collection.imageUrl ? 
                   <img src={collection.imageUrl} alt="Current cover art" />
-                )}
-                {previewImage ? (
-                  <img src={previewImage} alt="Preview" />
-                ) : (
-                  <img src="/images/img.jpeg" alt="Preview" />
-                )}
-              </div>
-              <div className="column">
+                  :
+                  <>
+                    {previewImage ? (
+                      <img src={previewImage} alt="Preview" />
+                    ) : (
+                      <img src="/images/img.jpeg" alt="Preview" />
+                    )}
+                  </>
+                }
                 {!collection && (
                   <>
                     <label>Upload Cover Art:</label>
@@ -131,6 +132,12 @@ export default function NewCollectionPage({ collection, collections, setCollecti
                     />
                   </>
                 )}
+              </div>
+              <div className="column">
+              {collection && (
+                <button onClick={() => setEdit(!edit)}>Back</button>
+              )}
+              <label>Title</label>
                 <input 
                   name="title" 
                   value={formData.title} 
@@ -138,12 +145,14 @@ export default function NewCollectionPage({ collection, collections, setCollecti
                   placeholder="Title"
                   autoComplete="off" 
                 />
+                <label>Release Date</label>
                 <input
                   type="date" 
                   name="releaseDate"
                   value={formData.releaseDate ? formData.releaseDate.slice(0,10) : ''} 
                   onChange={handleChange} 
                 />
+                <label>Bandcamp Embed (just the album number)</label>
                 <input 
                   name="embed" 
                   value={formData.embed} 
@@ -165,18 +174,22 @@ export default function NewCollectionPage({ collection, collections, setCollecti
                   cols="30" rows="5"
                   placeholder="Notes"
                 />
+                <div className="agreement">
+                  <input
+                    type="checkbox"
+                    name="agreement"
+                    onChange={handleChange}
+                    value={formData.agreement} 
+                  />
+                  <p>By checking this box and submitting this new collection, you certify that you own or control all rights to all of the submitted data.</p>
+                </div>
+                {collection ? 
+                  <button type="submit" disabled={!isAgreementChecked}>Update Collection</button>
+                  :
+                  <button type="submit" disabled={!isAgreementChecked}>Create Collection</button>
+                }
               </div>
             </div>
-            <div className="agreement">
-              <input
-                type="checkbox"
-                name="agreement"
-                onChange={handleChange}
-                value={formData.agreement} 
-              />
-              <p>By checking this box and submitting this new collection, you certify that you own or control all rights to all of the submitted data.</p>
-            </div>
-            <button type="submit" disabled={!isAgreementChecked}>Add Collection</button>
           </form>
         </div>
       </section>

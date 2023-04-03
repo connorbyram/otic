@@ -99,8 +99,7 @@ export default function CollectionPage({ collections, setCollections, user }) {
                 </section>
                 :
                 <>
-                    <button onClick={() => setEdit(!edit)}>Close</button>
-                    <CollectionForm collection={collection} collections={collections} setCollections={setCollections} />
+                    <CollectionForm collection={collection} collections={collections} setCollections={setCollections} edit={edit} setEdit={setEdit} />
                 </>
             }
         </>

@@ -4,14 +4,19 @@ label {
     font-size: 18px;
 
 }
+
 form img{
+    margin-bottom: 20px;
     width: 65vmin;
     height: 65vmin;
     object-fit: contain;
 }
 
 .agreement {
-    margin-top: 40px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: baseline;
 }
 
 #preview {
