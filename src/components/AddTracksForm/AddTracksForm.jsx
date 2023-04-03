@@ -1,5 +1,18 @@
+import { useState, useRef } from "react";
+
 export default function AddTracksForm() {
+    const fileInputRef = useRef();
     return (
-        <h1>Tracks</h1>
+        <>
+            <form action="">
+                <label>Add a Track:</label>
+                <input 
+                    type="file"
+                    name="track"
+                    ref={fileInputRef}
+                    accept=".wav, .mp3"
+                />
+            </form>
+        </>
     );
 }

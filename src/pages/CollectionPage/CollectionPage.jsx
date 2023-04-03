@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import CollectionForm from '../../components/CollectionForm/CollectionForm';
 import CollectionTile from '../../components/CollectionTile/CollectionTile';
+import AddTracksForm from '../../components/AddTracksForm/AddTracksForm';
 import EditMenu from '../../components/EditMenu/EditMenu';
 import ConfirmDelete from '../../components/ConfirmDelete/ConfirmDelete';
 import "./CollectionPage.css";
@@ -63,7 +64,10 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                 <text>
                                     <h2>{collection.user.name}</h2>
                                     <h4>{new Date(collection.releaseDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</h4>
-                                </text>     
+                                </text>
+                                {user._id === collection.user._id && !collection.audio.length && (
+                                    < AddTracksForm />
+                                )}     
                                 <iframe 
                                     title={collection.title}
                                     src={`https://bandcamp.com/EmbeddedPlayer/album=${collection.embed}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/`} seamless>
