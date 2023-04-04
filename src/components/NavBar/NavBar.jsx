@@ -12,7 +12,7 @@ export default function NavBar({ user, setUser }) {
     <nav>
       <section>
         <div className="nav-container">
-          <Link to="/"><span>otic</span></Link>
+          <Link to="/"><span>otic &#123;oh-tik, ot-ik&#125; </span></Link>
           <div className="nav-links">
             {user.creator && <Link to="/new_collection">Add Collection</Link> }
             <Link to="" onClick={handleLogOut}>Log Out</Link>
