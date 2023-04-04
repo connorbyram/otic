@@ -86,13 +86,13 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                             />
 
                                         )}
-                                        {!collection.publish ? 
-                                            <button onClick={publishCollection}>Publish Collection</button> 
-                                            :
-                                            <></>    
-                                        }
                                     </>
                                 )}
+                                {!collection.publish ? 
+                                    <button onClick={publishCollection}>Publish Collection</button> 
+                                    :
+                                    <></>    
+                                }
                                 { collection.embed.length && !tracks.length ? 
                                     <iframe 
                                         title={collection.title}
