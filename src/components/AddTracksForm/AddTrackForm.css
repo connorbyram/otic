@@ -5,3 +5,46 @@
     align-items: center;
     border-bottom: solid 1px white;
 }
+
+.track-form {
+    display: flex;
+}
+
+.add {
+    all: unset;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 30px;
+    font-size: 25px;
+    color: black;
+    border: solid 2px #FE4D20;
+    opacity: 75%;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 250ms;
+}
+
+.add:hover {
+    opacity: 100%;
+    background-color: #FE4D20;
+}
+
+.trash {
+    all: unset;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 32px;
+    background-color: #FE4D20;
+    opacity: 75%;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 250ms;
+}
+
+.trash:hover {
+    opacity: 100%;
+}
+
+.trash img {
+    width: 100%;
+}

@@ -7,6 +7,7 @@ import CollectionTile from '../../components/CollectionTile/CollectionTile';
 import AddTracksForm from '../../components/AddTracksForm/AddTracksForm';
 import EditMenu from '../../components/EditMenu/EditMenu';
 import ConfirmDelete from '../../components/ConfirmDelete/ConfirmDelete';
+import Player from '../../components/Player/Player';
 import "./CollectionPage.css";
 
 export default function CollectionPage({ collections, setCollections, user }) {
@@ -24,7 +25,7 @@ export default function CollectionPage({ collections, setCollections, user }) {
         setCollection(collection);
     }, [collections, collectionTitle, userName]);
 
-    async function updateCollection() {
+    async function publishCollection() {
         const updatedCollection = { ...collection, publish: true };
         await collectionsAPI.updateCollection(updatedCollection._id, updatedCollection);
         setCollection(updatedCollection);
@@ -59,7 +60,7 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                     {collections.map((collection) => {
                                         return (
                                             <React.Fragment key={collection._id}>
-                                                {currentPage.user.name === collection.user.name && currentPage.title !== collection.title  ?
+                                                {currentPage.user.name === collection.user.name && currentPage.title !== collection.title && collection.publish  ?
                                                     <CollectionTile collection={collection} key={collection._id} collections={collections}/> 
                                                 :
                                                 <></>
@@ -75,20 +76,35 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                     <h2>{collection.user.name}</h2>
                                     <h4>{new Date(collection.releaseDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</h4>
                                 </span>
-                                {user._id === collection.user._id && user.creator && !user.publish && (
+                                {user._id === collection.user._id && user.creator && !collection.publish && (
                                     <>
-                                        < AddTracksForm 
-                                            collection={collection} setCollections={setCollections} 
-                                            collections={collections}
-                                            tracks={tracks} setTracks={setTracks} 
-                                        />
-                                        <button onClick={updateCollection}>Publish Collection</button>     
+                                        {!collection.embed && (
+                                            < AddTracksForm 
+                                                collection={collection} setCollections={setCollections} 
+                                                collections={collections}
+                                                tracks={tracks} setTracks={setTracks} 
+                                            />
+
+                                        )}
+                                        {!collection.publish ? 
+                                            <button onClick={publishCollection}>Publish Collection</button> 
+                                            :
+                                            <></>    
+                                        }
                                     </>
                                 )}
-                                <iframe 
-                                    title={collection.title}
-                                    src={`https://bandcamp.com/EmbeddedPlayer/album=${collection.embed}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/`} seamless>
-                                </iframe>
+                                { collection.embed.length && !tracks.length ? 
+                                    <iframe 
+                                        title={collection.title}
+                                        src={`https://bandcamp.com/EmbeddedPlayer/album=${collection.embed}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/`} seamless>
+                                    </iframe>
+                                    :
+                                    <>
+                                        {collection.publish && (
+                                            <Player tracks={tracks} collection={collection} />
+                                        )}
+                                    </>
+                                }
                                 <p>{collection.notes}</p>
                             </div>
                         </div>
