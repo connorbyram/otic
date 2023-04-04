@@ -10,7 +10,9 @@ export default function LandingPage({ collections }) {
           <div className='tile-grid'>
             {collections.map((collection) => {
               return (
-                <CollectionTile collection={collection} key={collection._id} collections={collections}/> 
+                collection.publish && (
+                  <CollectionTile collection={collection} key={collection._id} collections={collections}/> 
+                )
               );
             })}
           </div>

@@ -26,3 +26,7 @@ export function uploadImage(imageData) {
 export function uploadTrack(id, trackData) {
   return sendRequest(`${BASE_URL}/${id}/uploadtrack`, 'POST', trackData, true);
 }
+
+export async function deleteTrack(trackId) {
+  return sendRequest(`${BASE_URL}/uploadtrack/${trackId}`, 'DELETE')
+}

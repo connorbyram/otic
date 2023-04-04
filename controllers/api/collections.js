@@ -9,7 +9,8 @@ module.exports = {
     delete: deleteCollection,
     update,
     upload,
-    uploadTrack
+    uploadTrack,
+    deleteTrack
 }
 
 async function index(req, res) {
@@ -38,7 +39,14 @@ async function create(req, res) {
 async function deleteCollection(req, res) {
     const collection = await Collection.findById(req.params.id);
 
-    // Delete image from S3 & MongoDB
+    // Delete Tracks from S3 & MongoDB
+    for(let i = 0; i < collection.tracks.length; i++) {
+        const track = collection.tracks[i];
+        await deleteFile(track.url);
+        collection.tracks.remove(track._id);
+    }
+
+    // Delete Image from S3 & MongoDB
     const image = await Image.findOneAndDelete({url: collection.imageUrl});
     await deleteFile(image.url);
 
@@ -110,3 +118,17 @@ async function uploadTrack(req, res) {
           res.status(400).json(err.message);
       }
   }
+
+async function deleteTrack(req, res) {
+    const collection = await Collection.findOne({'tracks._id': req.params.id}).populate('user');
+    const track = collection.tracks.id(req.params.id);
+    const trackUrl = track.url;
+    
+    collection.tracks.remove(req.params.id);
+
+    // Delete from AWS S3
+    await deleteFile(trackUrl);
+
+    await collection.save();
+    res.json(collection);
+}

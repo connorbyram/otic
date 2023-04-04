@@ -9,6 +9,7 @@ router.get('/', collectionsCtrl.index);
 router.post('/', ensureLoggedIn, collectionsCtrl.create);
 router.post('/upload', upload.single('image'), collectionsCtrl.upload);
 router.post('/:id/uploadtrack', upload.single('track'), ensureLoggedIn, collectionsCtrl.uploadTrack)
+router.delete('/uploadtrack/:id', ensureLoggedIn, collectionsCtrl.deleteTrack);
 router.put('/:id', ensureLoggedIn, collectionsCtrl.update);
 router.delete('/:id', ensureLoggedIn, collectionsCtrl.delete);
 

@@ -8,10 +8,6 @@ const trackSchema = new Schema({
     timestamps: true,
   });
 
-// const audioSchema = new Schema({
-//     tracks: [trackSchema]
-// });
-
 const collectionSchema = new Schema ({
     user: {
         type: Schema.Types.ObjectId,
@@ -21,14 +17,12 @@ const collectionSchema = new Schema ({
     imageUrl: {type: String, required: true},
     title: {type: String, required: true},
     releaseDate: {type: Date, required: true},
-    embed: {type: String, required: true},
+    embed: {type: String},
     notes: {type: String},
-    genre: {
-        type: String,
-        required: true
-    },
+    genre: {type: String, required: true},
     agreement: {type: Boolean, default: false},
     tracks: [trackSchema],
+    publish: {type: Boolean, default: false}
 }, {
     timestamps: true,
 });

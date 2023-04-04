@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import React from 'react';
+import * as collectionsAPI from "../../utilities/collections-api";
 import CollectionForm from '../../components/CollectionForm/CollectionForm';
 import CollectionTile from '../../components/CollectionTile/CollectionTile';
 import AddTracksForm from '../../components/AddTracksForm/AddTracksForm';
@@ -14,7 +15,6 @@ export default function CollectionPage({ collections, setCollections, user }) {
     const [showMenu, setShowMenu] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [tracks, setTracks] = useState([]);
-    const [track, setTrack] = useState(null);
     const { userName, collectionTitle } = useParams();
 
     const currentPage = collection;
@@ -22,7 +22,14 @@ export default function CollectionPage({ collections, setCollections, user }) {
     useEffect(function() {
         const collection = collections.find((c) => c.user.name === userName && c.title === collectionTitle);
         setCollection(collection);
-    }, [collections, collectionTitle, userName, track]);
+    }, [collections, collectionTitle, userName]);
+
+    async function updateCollection() {
+        const updatedCollection = { ...collection, publish: true };
+        await collectionsAPI.updateCollection(updatedCollection._id, updatedCollection);
+        setCollection(updatedCollection);
+        setCollections(collections.map((c) => c._id === updatedCollection._id ? updatedCollection : c));
+      }
 
     if (!collection) return null;
 
@@ -68,14 +75,16 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                     <h2>{collection.user.name}</h2>
                                     <h4>{new Date(collection.releaseDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</h4>
                                 </span>
-                                {user._id === collection.user._id && user.creator && (
-                                    < AddTracksForm 
-                                        collection={collection} setCollections={setCollections} 
-                                        collections={collections}
-                                        tracks={tracks} setTracks={setTracks} 
-                                        setTrack={setTrack}
-                                    />
-                                )}     
+                                {user._id === collection.user._id && user.creator && !user.publish && (
+                                    <>
+                                        < AddTracksForm 
+                                            collection={collection} setCollections={setCollections} 
+                                            collections={collections}
+                                            tracks={tracks} setTracks={setTracks} 
+                                        />
+                                        <button onClick={updateCollection}>Publish Collection</button>     
+                                    </>
+                                )}
                                 <iframe 
                                     title={collection.title}
                                     src={`https://bandcamp.com/EmbeddedPlayer/album=${collection.embed}/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/`} seamless>

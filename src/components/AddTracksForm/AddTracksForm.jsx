@@ -18,24 +18,24 @@ export default function AddTracksForm({ collection, collections, setCollections,
       const updatedCollection = await collectionsAPI.uploadTrack(collection._id, trackData);
       setCollections(collections.map((c) => c._id === updatedCollection._id ? updatedCollection : c));
       setTitle('');
-      
+
       fileInputRef.current.value = '';
       navigate(`/${updatedCollection.user.name}/${updatedCollection.title}`);
     };
 
-    // async function handleDeleteTrack(id) {
-    //   await collectionsAPI.deleteTrack(id);
-    //   const remainingTracks = collection.tracks.filter
-    // }
+    async function handleDeleteTrack(trackId) {
+      const updatedCollection = await collectionsAPI.deleteTrack(trackId);
+      setCollections(collections.map((c) => c._id === updatedCollection._id ? updatedCollection : c));
+    }
   
 
     return (
         <>
             {collection.tracks.map((track, idx) => {
               return (
-                <div className="track">
+                <div className="track" key={track._id}>
                     <h3>{idx +1}. {track.title}</h3>
-                    <button>Delete</button>
+                    <button onClick={() => handleDeleteTrack(track._id)}>Delete</button>
                 </div>
               )
             })}
@@ -50,7 +50,7 @@ export default function AddTracksForm({ collection, collections, setCollections,
                 <input 
                     type="file"
                     ref={fileInputRef}
-                    accept=".mp3"
+                    accept=".mp3, .wav"
                 />
                 <button type="submit">+</button>
             </form>
