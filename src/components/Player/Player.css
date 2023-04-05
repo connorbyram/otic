@@ -22,7 +22,6 @@
 .play-btn.current{
   background-color: black;
   border: solid 1px black;
-  cursor: auto;
 }
 
 .play-img {
