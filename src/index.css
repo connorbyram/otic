@@ -62,7 +62,14 @@ h5 {
 p {
   all: unset;
   font-size: 18px;
+  line-height: 1.2em;
   text-align: left;
+  white-space: pre-wrap;
+}
+
+.p-small {
+  margin-top: 30px;
+  font-size: 14px;
 }
 
 .error-message {

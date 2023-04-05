@@ -7,25 +7,22 @@ export default function Player({ tracks, collection }) {
   const [currentTrack, setCurrentTrack] = useState(null);
   const audioRef = useRef(null);
 
-  function handlePlayPause() {
-    if (isPlaying) {
-      setIsPlaying(false);
-      audioRef.current.pause();
-    } else {
-      setIsPlaying(true);
-      audioRef.current.play();
+  function handleTrackSelect(track) {
+    setCurrentTrack(track);
+  }
+
+  function handleAudioEnd() {
+    // Find the index of the current track
+    const currentIndex = collection.tracks.findIndex(track => track._id === currentTrack._id);
+    
+    // If there is a next track, set it as the current track
+    if (currentIndex < collection.tracks.length - 1) {
+      setCurrentTrack(collection.tracks[currentIndex + 1]);
     }
   }
 
-  function handleTrackSelect(track) {
-    setCurrentTrack(track);
-    setIsPlaying(true);
-    audioRef.current.src = track.url;
-    audioRef.current.play();
-  }
-
   return (
-    <div>
+    <div className="audio">
       {/* <h3>{currentTrack?.title}</h3> */}
       <ReactAudioPlayer 
         className="player"
@@ -36,14 +33,18 @@ export default function Player({ tracks, collection }) {
         controls
         onPause={() => setIsPlaying(false)}
         onPlay={() => setIsPlaying(true)}
+        onEnded={() => handleAudioEnd()}
       />
       {collection.tracks.map((track, idx) => {
         return (
           <div className="track" key={track._id}>
-            <h3>{idx + 1}. {track.title}</h3>
-            <button onClick={() => handleTrackSelect(track)}>
-              Play
+            <button 
+              className={`play-btn ${track === currentTrack ? "current" : ""}`} 
+              onClick={() => handleTrackSelect(track)}
+            >
+              <img className="play-img" src={process.env.PUBLIC_URL + '/images/play.svg'} alt="play button"/>
             </button>
+            <h3>{idx + 1}. {track.title}</h3>
           </div>
         );
       })}

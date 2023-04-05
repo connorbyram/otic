@@ -106,6 +106,7 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                     </>
                                 }
                                 <p>{collection.notes}</p>
+                                <p className='p-small'>© all rights reserved</p>
                             </div>
                         </div>
                     </div>
