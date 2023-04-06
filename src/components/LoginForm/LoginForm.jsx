@@ -1,12 +1,16 @@
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import * as usersService from '../../utilities/users-service';
 
 export default function LoginForm({ setUser, setShowSignUp, confirmPage }) {
   const [credentials, setCredentials] = useState({
     email: '',
-    password: ''
+    password: '',
+    confirmationCode: '',
   });
   const [error, setError] = useState('');
+
+  const navigate = useNavigate();
 
   function handleChange(evt) {
     setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
@@ -18,7 +22,9 @@ export default function LoginForm({ setUser, setShowSignUp, confirmPage }) {
     evt.preventDefault();
     try {
       if(confirmPage) {
-        await usersService.confirm(credentials);
+        console.log('Confirm Component');
+        await usersService.confirm(credentials.email, credentials.confirmationCode);
+        navigate('/');
       } else{
         // The promise returned by the signUp service method 
         // will resolve to the user object included in the
@@ -42,7 +48,6 @@ export default function LoginForm({ setUser, setShowSignUp, confirmPage }) {
             <input type="text" name="confirmationCode" value={credentials.confirmationCode} onChange={handleChange} required />
             <div className="btns">
               <button type="submit">CONFIRM</button>
-              <button className='btn-2' onClick={() => setShowSignUp(true)}>SIGN UP</button>
             </div>
           </>
           :

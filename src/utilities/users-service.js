@@ -32,10 +32,10 @@ export async function signUp(userData) {
 }
 
 export async function confirm(email, confirmationCode) {
-  try{
-    const token = await usersAPI.confirm({ email, confirmationCode });
-    localStorage.setItem('token', token);
-    return getUser();
+  try {
+    console.log('Users-Service');
+    const user = await usersAPI.confirm({ email, confirmationCode });
+    return user;
   } catch(err) {
     throw new Error('Confirmation failed - try again');
   }

@@ -101,7 +101,7 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                     :
                                     <>
                                         {collection.publish && (
-                                            <Player tracks={tracks} collection={collection} />
+                                            <Player tracks={tracks} collection={collection} user={user} />
                                         )}
                                     </>
                                 }

@@ -10,6 +10,7 @@ module.exports = {
 };
 
 async function confirm(req, res) {
+  console.log('Controller');
   try{
     const { email, confirmationCode } = req.body;
     const user = await User.findOneAndUpdate(
