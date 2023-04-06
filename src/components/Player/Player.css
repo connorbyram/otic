@@ -1,8 +1,25 @@
-.player {
+.player-head {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 40px;
   margin: 20px 0 30px;
   width: 100%;
+  background-color: #F1F3F4;
   box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 40px;
+  border: solid 1px black;
+  border-radius: 200px;
+}
+
+.player-head  h4 {
+  all: unset;
+  margin-left: 20px;
+  text-align: left;
+  color: black;
+}
+
+.player {
+  width: 100%;
+  height: 30px;
 }
 
 .play-btn {

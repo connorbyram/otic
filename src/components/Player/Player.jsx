@@ -55,22 +55,31 @@ export default function Player({ tracks, collection }) {
 
   return (
     <div className="audio">
-      <ReactAudioPlayer 
-        className="player"
-        ref={audioRef}
-        title={currentTrack?.title}
-        src={currentTrack?.url}
-        autoPlay
-        controls
-        onPause={() => setIsPlaying(false)}
-        onPlay={() => { 
-          const duration = audioRef.current.audioEl.current.duration;
-          setTrackDuration(duration);
-          setIsPlaying(true)}}
-        onEnded={() => handleAudioEnd()}
-        listenInterval={1000}
-        onListen={() => updatePlayCount(audioRef)} 
-      />
+      <div className="player-head">
+        {currentTrack?
+          <h4><strong>Now Playing:</strong> {currentTrack?.title} by {collection?.user.name} </h4>
+          :
+          <><h4><strong>Now Playing:</strong></h4></>
+        }
+        <ReactAudioPlayer 
+          className="player"
+          ref={audioRef}
+          title={currentTrack?.title}
+          src={currentTrack?.url}
+          autoPlay
+          controls
+          controlsList="nodownload noplaybackrate"
+          onPause={() => setIsPlaying(false)}
+          onPlay={() => { 
+            const duration = audioRef.current.audioEl.current.duration;
+            setTrackDuration(duration);
+            setIsPlaying(true)}}
+          onEnded={() => handleAudioEnd()}
+          listenInterval={1000}
+          onListen={() => updatePlayCount(audioRef)} 
+        />
+
+      </div>
       {collection.tracks.map((track, idx) => {
         return (
           <div className="track" key={track._id}>
