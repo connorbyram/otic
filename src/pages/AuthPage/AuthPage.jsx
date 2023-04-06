@@ -14,7 +14,7 @@ export default function AuthPage({ setUser }) {
   }, [showSignUp]);
 
   return (
-    <main>
+    <div className="wrapper">
       <div className="frost">
       </div>
       <div className="login">
@@ -30,6 +30,6 @@ export default function AuthPage({ setUser }) {
         <div className="blob" style={{ backgroundImage: `url(${blobBackground})` }} />
         <div className="blob-two" style={{ backgroundImage: `url(${blobBackground})` }} />
       </div>
-    </main>
+    </div>
   );
 }
