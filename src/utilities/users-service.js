@@ -5,9 +5,20 @@
 
 import * as usersAPI from './users-api';
 
+function generateCode(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
+  let code = '';
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    code += characters.charAt(randomIndex);
+  }
+  return code;
+}
+
 export async function signUp(userData) {
   try {
-    const token = await usersAPI.signUp(userData);
+    const confirmationCode = generateCode(8);
+    const token = await usersAPI.signUp({ ...userData, confirmationCode });
     localStorage.setItem('token', token);
     return getUser();
   } catch (err) {
@@ -17,6 +28,16 @@ export async function signUp(userData) {
     }
     // Otherwise, re-throw the error
     throw err;
+  }
+}
+
+export async function confirm(email, confirmationCode) {
+  try{
+    const token = await usersAPI.confirm({ email, confirmationCode });
+    localStorage.setItem('token', token);
+    return getUser();
+  } catch(err) {
+    throw new Error('Confirmation failed - try again');
   }
 }
 

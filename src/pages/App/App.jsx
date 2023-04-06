@@ -8,6 +8,7 @@ import AuthPage from '../AuthPage/AuthPage';
 import LandingPage from '../LandingPage/LandingPage';
 import CollectionPage from '../CollectionPage/CollectionPage'
 import NewCollectionPage from '../NewCollectionPage/NewCollectionPage';
+import ConfirmPage from '../ConfirmPage/ConfirmPage';
 
 
 export default function App() {
@@ -29,7 +30,7 @@ export default function App() {
           <>
             <NavBar user={user} setUser={setUser} />
             <Routes>
-              {/* Route components in here */}
+              {/* Protected route components */}
               <Route path="/" element={<LandingPage collections={collections} setCollections={setCollections} />} />
               <Route path="/new_collection" element={<NewCollectionPage collections={collections} setCollections={setCollections} />} />
               <Route path="/:userName/:collectionTitle" element={<CollectionPage collections={collections} setCollections={setCollections} user={user} />} />
@@ -37,7 +38,11 @@ export default function App() {
             </Routes>
           </>
           :
-          <AuthPage setUser={setUser} />
+          <Routes>
+            {/* Unprotected route components */}
+            <Route path="/" element={<AuthPage setUser={setUser} />} />
+            <Route path="/confirm" element={<ConfirmPage setUser={setUser} />} />
+          </Routes>
       }
     </main>
   );

@@ -27,6 +27,8 @@ const userSchema = new Schema({
     required: true
   },
   password: {type: String, required: true}, 
+  confirmationCode: {type: String, default: null},
+  confirmed: {type: Boolean, default: false},
   creator: {type: Boolean, default: false},
   superCreator: {type: Boolean, default: false},
   

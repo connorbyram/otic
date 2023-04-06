@@ -5,7 +5,7 @@ import './AuthPage.css'
 import blob1 from '../../images/blob.jpeg';
 import blob2 from '../../images/blob2.jpeg';
 
-export default function AuthPage({ setUser }) {
+export default function AuthPage({ setUser, confirmPage }) {
   const [showSignUp, setShowSignUp] = useState(false);
   const [blobBackground, setBlobBackground] = useState(blob2);
 
@@ -20,10 +20,16 @@ export default function AuthPage({ setUser }) {
       <div className="login">
         <h1><strong>otic</strong> &#123;oh-tik&#125;</h1>
         <h2>: a music platform for musicians,<br/>by musicians</h2>
-        { showSignUp ?
-          <SignUpForm setUser={setUser} setShowSignUp={setShowSignUp} />
-          :
-          <LoginForm setUser={setUser} setShowSignUp={setShowSignUp} />
+        { confirmPage? 
+          <LoginForm setUser={setUser} setShowSignUp={setShowSignUp} confirmPage={confirmPage} />
+        :
+          <>
+              { showSignUp ?
+                <SignUpForm setUser={setUser} setShowSignUp={setShowSignUp} />
+                :
+                <LoginForm setUser={setUser} setShowSignUp={setShowSignUp} />
+              }
+          </>
         }
       </div>
       <div className="blobs">

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as usersService from '../../utilities/users-service';
 
-export default function LoginForm({ setUser, setShowSignUp }) {
+export default function LoginForm({ setUser, setShowSignUp, confirmPage }) {
   const [credentials, setCredentials] = useState({
     email: '',
     password: ''
@@ -17,11 +17,15 @@ export default function LoginForm({ setUser, setShowSignUp }) {
     // Prevent form from being submitted to the server
     evt.preventDefault();
     try {
-      // The promise returned by the signUp service method 
-      // will resolve to the user object included in the
-      // payload of the JSON Web Token (JWT)
-      const user = await usersService.login(credentials);
-      setUser(user);
+      if(confirmPage) {
+        await usersService.confirm(credentials);
+      } else{
+        // The promise returned by the signUp service method 
+        // will resolve to the user object included in the
+        // payload of the JSON Web Token (JWT)
+        const user = await usersService.login(credentials);
+        setUser(user);
+      }
     } catch {
       setError('Log In Failed - Try Again');
     }
@@ -32,12 +36,26 @@ export default function LoginForm({ setUser, setShowSignUp }) {
       <form autoComplete="off" onSubmit={handleSubmit}>
         <label>Email</label>
         <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
-        <label>Password</label>
-        <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
-        <div className="btns">
-          <button type="submit">LOG IN</button>
-          <button className='btn-2' onClick={() => setShowSignUp(true)}>SIGN UP</button>
-        </div>
+        { confirmPage ? 
+          <>
+            <label>Confirmation Code</label>
+            <input type="text" name="confirmationCode" value={credentials.confirmationCode} onChange={handleChange} required />
+            <div className="btns">
+              <button type="submit">CONFIRM</button>
+              <button className='btn-2' onClick={() => setShowSignUp(true)}>SIGN UP</button>
+            </div>
+          </>
+          :
+          <>
+            <label>Password</label>
+            <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
+            <div className="btns">
+              <button type="submit">LOG IN</button>
+              <button className='btn-2' onClick={() => setShowSignUp(true)}>SIGN UP</button>
+            </div>
+          </>
+        
+        }
       </form>
       <p className="error-message">&nbsp;{error}</p>
     </>

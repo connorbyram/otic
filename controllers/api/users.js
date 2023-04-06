@@ -5,8 +5,27 @@ const User = require('../../models/user');
 module.exports = {
   create,
   login,
-  checkToken
+  checkToken,
+  confirm
 };
+
+async function confirm(req, res) {
+  try{
+    const { email, confirmationCode } = req.body;
+    const user = await User.findOneAndUpdate(
+      {email, confirmationCode},
+      {confirmed: true, confirmationCode:''}  
+    );
+
+    if(!user) {
+      return res.status(400).json({message: 'Invalid credentials'});
+    }
+    
+    res.status(200).json({message: 'Account confirmed successfully'});
+  } catch {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
 
 function checkToken(req, res) {
   console.log('req.user', req.user);
