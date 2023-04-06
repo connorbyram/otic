@@ -1,14 +1,11 @@
+.collection-form .flex {
+    max-width: 100%;
+}
+
 label {
     margin-bottom: 10px;
     text-align: left;
     font-size: 18px;
-}
-
-form img{
-    margin-bottom: 20px;
-    width: 70vmin;
-    height: 70vmin;
-    object-fit: contain;
 }
 
 .agreement {
@@ -18,9 +15,8 @@ form img{
     align-items: baseline;
 }
 
-#preview {
-    position: relative;
-    margin-right: 30px;
-    border: solid 1px black;
-    object-fit: contain;
+@media (max-width: 768px) {
+    .collection-form .flex {
+       flex-direction: column;
+    }
 }

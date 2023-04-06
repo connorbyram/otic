@@ -12,7 +12,7 @@ export default function NavBar({ user, setUser }) {
     <nav>
       <section>
         <div className="nav-container">
-          <Link className='logo' to="/"><><strong>otic</strong></> &#123;oh-tik&#125;</Link>
+          <Link className='logo' to="/"><strong>otic</strong> &#123;oh-tik&#125;</Link>
           <div className="nav-links">
             {user.creator && <Link to="/new_collection">Add Collection</Link> }
             <Link to="" onClick={handleLogOut}>Log Out</Link>

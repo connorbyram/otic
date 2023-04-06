@@ -13,9 +13,13 @@ nav {
     align-items: center;
 }
 
+.nav-links {
+    display: flex;
+    gap: 12px;
+}
+
 a {
     all: unset;
-    margin-left: 15px;
     cursor: pointer;
 }
 
@@ -27,4 +31,11 @@ span {
 
 .logo {
     font-size: 20px;
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 8px 10px;
+        max-width: 480px;
+    }
 }

@@ -105,17 +105,17 @@ export default function NewCollectionPage({ collection, collections, setCollecti
     <>
       <section>
         <div className="container">
-          <form className="NewCollectionForm" onSubmit={handleSubmit}>
+          <form className="collection-form" onSubmit={handleSubmit}>
             <div className="flex">
               <div className="column" id="left">
                 {collection && !previewImage ? 
-                  <img src={collection.imageUrl} alt="Current cover art" />
+                  <img className="cover-art" src={collection.imageUrl} alt="Current cover art" />
                   :
                   <>
                     {previewImage ? 
-                      <img src={previewImage} alt="Previews" />
+                      <img className="cover-art" src={previewImage} alt="Previews" />
                      : 
-                      <img src="/images/img.jpeg" alt="Previews" />
+                      <img className="cover-art" src="/images/img.jpeg" alt="Previews" />
                     }
                   </>
                 }

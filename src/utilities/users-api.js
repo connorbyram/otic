@@ -13,6 +13,6 @@ export async function checkToken() {
   return sendRequest(`${BASE_URL}/check-token`);
 }
 
-export async function confirm(credentials) {
-  return sendRequest(`${BASE_URL}/confirm`, 'POST', credentials);
+export async function confirm(email, confirmationCode) {
+  return sendRequest(`${BASE_URL}/confirm`, 'POST', { email, confirmationCode });
 }

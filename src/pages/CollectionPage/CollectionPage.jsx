@@ -55,24 +55,10 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                         confirmDelete={confirmDelete} setConfirmDelete={setConfirmDelete}
                                     />
                                 )}
-                                {hasOtherCollections && <h3>Other Collections:</h3>}
-                                <div className='other-collections'>
-                                    {collections.map((collection) => {
-                                        return (
-                                            <React.Fragment key={collection._id}>
-                                                {currentPage.user.name === collection.user.name && currentPage.title !== collection.title && collection.publish  ?
-                                                    <CollectionTile collection={collection} key={collection._id} collections={collections}/> 
-                                                :
-                                                <></>
-                                                }
-                                            </React.Fragment>
-                                        );
-                                    })}
-                                </div>
                             </div>
                             <div className="column">
                                 <h1>{collection.title}</h1>
-                                <span>
+                                <span className='name-date'>
                                     <h2>{collection.user.name}</h2>
                                     <h4>{new Date(collection.releaseDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</h4>
                                 </span>
@@ -109,6 +95,25 @@ export default function CollectionPage({ collections, setCollections, user }) {
                                 <p className='p-small'>© all rights reserved</p>
                             </div>
                         </div>
+                    </div>
+                    <div className="container">
+                        <div className="other-collections">
+                            {hasOtherCollections && <h3>Other Collections:</h3>}
+                                <div className='other-collections-grid'>
+                                    {collections.map((collection) => {
+                                        return (
+                                            <React.Fragment key={collection._id}>
+                                                {currentPage.user.name === collection.user.name && currentPage.title !== collection.title && collection.publish  ?
+                                                    <CollectionTile collection={collection} key={collection._id} collections={collections}/> 
+                                                :
+                                                <></>
+                                                }
+                                            </React.Fragment>
+                                        );
+                                    })}
+                                </div>
+                        </div>
+
                     </div>
                 </section>
                 :
