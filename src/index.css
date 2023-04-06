@@ -81,17 +81,45 @@ p {
 button {
   all: unset;
   width: fit-content;
-  margin-bottom: 15px;
+  margin: 15px 0;
   display: inline-block;
   padding: 12px 20px;
   font-size: 18px;
   font-weight: bold;
   color: white;
   background-color: black;
+  border-radius: 8px;
   cursor: pointer;
+  transition: 250ms;
+  opacity: 80%;
+}
+
+button:hover {
+  opacity: 100%;
+}
+
+.btn-2 {
+  background-color: #E8E5E3;
+  border: solid 1px black;
+  color: black;
+}
+
+.btn-2:hover {
+  background-color: black;
+  color: white;
+}
+
+.btns {
+  display: flex;
+  gap: 12px;
 }
 
 button:disabled {
   opacity: 75%;
   cursor: not-allowed;
+}
+
+.flex-vrt {
+  display: flex;
+  flex-direction: column;
 }

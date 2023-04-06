@@ -1,0 +1,143 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    perspective: 1000px;
+}
+
+.frost {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 20;
+    perspective: 1000px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.login {
+    padding: 20px 40px;
+    min-width: 650px;
+    position: absolute;
+    z-index: 30;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    border-radius: 20px;
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+}
+
+.login h2 {
+    margin-bottom: 40px;
+}
+
+.login  form {
+    width: 100%;
+}
+
+.login label {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.login input {
+    all: unset;
+    margin-bottom: 12px;
+    padding: 10px 20px 10px 10px;
+    min-width: 250px;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: left;
+    border: solid 1px black;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 7px 7px 15px 1px rgba(0, 0, 0, 0.2);
+}
+
+
+.blobs{
+    position: relative;
+    perspective: 1000px;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.blob-two > img {
+    width: 45vmin;
+    height: 45vmin;
+}
+.blob > img {
+    width: 45vmin;
+    height: 45vmin;
+    transition: 350ms;
+}
+
+.blob {
+    position: absolute;
+    top: 5vh;
+    left: 5vw;
+    z-index: 2;
+    overflow: hidden;
+    width: 40vmin;
+    height: 40vmin;
+    border-radius: 50%;
+    background-size: contain;
+    animation-name: floating;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-left: 30px;
+    margin-top: 5px;
+    transform: rotateX(30deg) rotateY(45deg);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+@keyframes floating {
+    0% { transform: translate(0,  0) scale(.75); filter: blur(9px); }
+    50%  { transform: translate(55vw, 30vh) scale(1.75) rotate(20deg); filter: blur(3px); }
+    100%   { transform: translate(0, 0) scale(.75) scale(1); filter: blur(9px); }   
+}
+
+
+.blob-two {
+    position: absolute;
+    right: 8vw;
+    top: 50vh;
+    z-index: 1;
+    overflow: hidden;
+    object-fit: contain;
+    width: 35vmin;
+    height: 35vmin;
+    border-radius: 50%;
+    background-size: contain;
+    animation-name: floating-two;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-left: 30px;
+    margin-top: 5px;
+    transform: rotateX(-30deg) rotateY(-45deg);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+@keyframes floating-two {
+    0% { transform: translate(0,  0px)scale(1.5); filter: blur(1px); }
+    50%  { transform: translate(-70vw, -45vh)scale(.5); filter: blur(3px); }
+    100%   { transform: translate(0, -0px) scale(1.5); filter: blur(1px); }   
+}
+
+.blob, .blob-two {
+    transition: background-image 1s ease-in-out;
+  }
+  

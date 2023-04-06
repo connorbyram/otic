@@ -1,21 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
+import './AuthPage.css'
+import blob1 from '../../images/blob.jpeg';
+import blob2 from '../../images/blob2.jpeg';
 
 export default function AuthPage({ setUser }) {
   const [showSignUp, setShowSignUp] = useState(false);
-  return (
-    <section>
-      <div className="container">
-        <h1>Welcome to Otic</h1>
-        { showSignUp ?
-            <SignUpForm setUser={setUser} />
-            :
-            <LoginForm setUser={setUser} />
-          }
-        <button onClick={() => setShowSignUp(!showSignUp)}>{showSignUp ? 'Log In' : 'Sign Up'}</button>
+  const [blobBackground, setBlobBackground] = useState(blob2);
 
+  useEffect(() => {
+    setBlobBackground(showSignUp ? blob2 : blob1);
+  }, [showSignUp]);
+
+  return (
+    <main>
+      <div className="frost">
       </div>
-    </section>
+      <div className="login">
+        <h1><strong>otic</strong> &#123;oh-tik&#125;</h1>
+        <h2>: a music platform for musicians,<br/>by musicians</h2>
+        { showSignUp ?
+          <SignUpForm setUser={setUser} setShowSignUp={setShowSignUp} />
+          :
+          <LoginForm setUser={setUser} setShowSignUp={setShowSignUp} />
+        }
+      </div>
+      <div className="blobs">
+        <div className="blob" style={{ backgroundImage: `url(${blobBackground})` }} />
+        <div className="blob-two" style={{ backgroundImage: `url(${blobBackground})` }} />
+      </div>
+    </main>
   );
 }
