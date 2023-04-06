@@ -32,6 +32,5 @@ export async function deleteTrack(trackId) {
 }
 
 export async function updateTrack(id, track) {
-  console.log('APIIIIIIIIIII')
   return sendRequest(`${BASE_URL}/uploadtrack/${id}`, 'PUT', track);
 }

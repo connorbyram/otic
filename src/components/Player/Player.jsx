@@ -30,10 +30,6 @@ export default function Player({ tracks, collection }) {
     }
   }
 
-  useEffect(() => {
-    console.log(`${listenTime} seconds of ${trackDuration}, listen added: ${listenAdded}`)
-  }, [listenTime, trackDuration, listenAdded]);
-
   function handleAudioEnd() {
     setListenTime(0);
     setListenAdded(false);
@@ -50,8 +46,7 @@ export default function Player({ tracks, collection }) {
   async function updatePlayCount(audioRef) {
     if (listenAdded) return;
     setListenTime(listenTime + 1);
-    if (listenTime >= trackDuration * 0.01) {
-      console.log('Plus 1 listent!')
+    if (listenTime >= trackDuration * 0.6) {
       setListenAdded(true);
       const updatedTrack = { ...currentTrack, listens: currentTrack.listens + 1 };
       await collectionsAPI.updateTrack(updatedTrack._id, updatedTrack);

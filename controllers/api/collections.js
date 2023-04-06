@@ -121,8 +121,18 @@ async function uploadTrack(req, res) {
   }
 
 async function updateTrack(req, res) {
-    console.log('bang');
-
+   try{
+       const collection = await Collection.findOne({'tracks._id': req.params.id}).populate('user');
+       const updatedTrack = collection.tracks.id(req.params.id);
+       
+       updatedTrack.listens += 1;
+       const updatedCollection = await collection.save();
+   
+       res.json(updatedCollection)
+   } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Failed to update track" });
+   }
 }
 
 async function deleteTrack(req, res) {
