@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactAudioPlayer from "react-audio-player";
+import * as collectionsAPI from "../../utilities/collections-api";
 import './Player.css'
 
 export default function Player({ tracks, collection }) {
@@ -31,7 +32,7 @@ export default function Player({ tracks, collection }) {
 
   useEffect(() => {
     console.log(`${listenTime} seconds of ${trackDuration}, listen added: ${listenAdded}`)
-  }, [listenTime]);
+  }, [listenTime, trackDuration, listenAdded]);
 
   function handleAudioEnd() {
     setListenTime(0);
@@ -46,12 +47,14 @@ export default function Player({ tracks, collection }) {
     }
   }
 
-  function updatePlayCount(audioRef) {
+  async function updatePlayCount(audioRef) {
     if (listenAdded) return;
-    setListenTime(listenTime + 10);
-    if (listenTime >= trackDuration * 0.6) {
+    setListenTime(listenTime + 1);
+    if (listenTime >= trackDuration * 0.01) {
       console.log('Plus 1 listent!')
       setListenAdded(true);
+      const updatedTrack = { ...currentTrack, listens: currentTrack.listens + 1 };
+      await collectionsAPI.updateTrack(updatedTrack._id, updatedTrack);
     };
   }
 
@@ -66,10 +69,11 @@ export default function Player({ tracks, collection }) {
         controls
         onPause={() => setIsPlaying(false)}
         onPlay={() => { 
-          const duration = Math.floor(audioRef.current.audioEl.current.duration / 10) * 10;
+          const duration = audioRef.current.audioEl.current.duration;
           setTrackDuration(duration);
           setIsPlaying(true)}}
         onEnded={() => handleAudioEnd()}
+        listenInterval={1000}
         onListen={() => updatePlayCount(audioRef)} 
       />
       {collection.tracks.map((track, idx) => {

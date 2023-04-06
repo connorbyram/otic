@@ -10,6 +10,7 @@ module.exports = {
     update,
     upload,
     uploadTrack,
+    updateTrack,
     deleteTrack
 }
 
@@ -118,6 +119,11 @@ async function uploadTrack(req, res) {
           res.status(400).json(err.message);
       }
   }
+
+async function updateTrack(req, res) {
+    console.log('bang');
+
+}
 
 async function deleteTrack(req, res) {
     const collection = await Collection.findOne({'tracks._id': req.params.id}).populate('user');

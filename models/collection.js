@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const trackSchema = new Schema({
     url: {type: String, required: true},
     title: String,
-    listens: {Number, default: 0 },
+    listens: {type: Number, default: 0 },
   }, {
     timestamps: true,
   });
