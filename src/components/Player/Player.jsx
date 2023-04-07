@@ -69,12 +69,7 @@ export default function Player({ tracks, collection }) {
           autoPlay
           controls
           controlsList="nodownload noplaybackrate"
-          style={{
-            backgroundColor: 'black',
-            '@media (max-width: 480px)': {
-              backgroundColor: 'transparent !important',
-            }
-            }} 
+          style={{ backgroundColor: 'transparent !important' }} 
           onPause={() => setIsPlaying(false)}
           onPlay={() => { 
             const duration = audioRef.current.audioEl.current.duration;
