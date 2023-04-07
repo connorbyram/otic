@@ -1,5 +1,6 @@
 .tile-grid {
     width: 100%;
+    margin-top: 30px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     column-gap: 5%;

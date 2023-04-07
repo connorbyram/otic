@@ -1,0 +1,37 @@
+.feature {
+    padding: 10px;
+    max-width: 100%;
+    display: flex;
+    background-color: white;
+    box-shadow: 7px 7px 15px 1px rgba(0, 0, 0, 0.2);
+}
+
+.feature img {
+    max-height: 75vh;
+    max-width: 50%;
+    aspect-ratio: 1/1;
+}
+
+.feature-copy {
+    padding: 30px 0 0 20px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: left;
+}
+
+@media (max-width: 768px) {
+    .feature img {
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 550px) {
+    .feature {
+        flex-direction: column;
+    }
+
+    .feature img {
+        max-width: none;
+    }
+}

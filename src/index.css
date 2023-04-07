@@ -32,6 +32,7 @@ h1 {
 
 h2 {
   all: unset;
+  display: block;
   margin-right: 30px;
   margin-bottom: 12px;
   font-size: 30px;
@@ -41,6 +42,7 @@ h2 {
 
 h3 {
   all: unset;
+  display: block;
   font-size: 25px;
   text-align: left;
 }
@@ -78,7 +80,7 @@ p {
   word-spacing: 3px;
 }
 
-button {
+button, .button-main {
   all: unset;
   width: fit-content;
   margin: 15px 0;
