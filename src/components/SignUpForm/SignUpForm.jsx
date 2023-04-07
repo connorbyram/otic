@@ -50,17 +50,17 @@ export default class SignUpForm extends Component {
             </div>
             <div className="flex-vrt">
               <label>Email</label>
-              <input type="email" name="email" value={this.state.email} onChange={this.handleChange} required />
+              <input className='login-input' type="email" name="email" value={this.state.email} onChange={this.handleChange} required />
             </div>
           </div>
           <div className="btns">
             <div className="flex-vrt">
               <label>Password</label>
-              <input type="password" name="password" value={this.state.password} onChange={this.handleChange} required />
+              <input className='login-input' type="password" name="password" value={this.state.password} onChange={this.handleChange} required />
             </div>
             <div className="flex-vrt">
               <label>Confirm Password</label>
-              <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required />
+              <input className='login-input' type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required />
             </div>
           </div>
           <div className="btns">

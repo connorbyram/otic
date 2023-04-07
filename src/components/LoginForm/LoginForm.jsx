@@ -41,11 +41,11 @@ export default function LoginForm({ setUser, setShowSignUp, confirmPage }) {
     <>
       <form autoComplete="off" onSubmit={handleSubmit}>
         <label>Email</label>
-        <input type="text" name="email" value={credentials.email} onChange={handleChange} required />
+        <input className='login-input' type="text" name="email" value={credentials.email} onChange={handleChange} required />
         { confirmPage ? 
           <>
             <label>Confirmation Code</label>
-            <input type="text" name="confirmationCode" value={credentials.confirmationCode} onChange={handleChange} required />
+            <input className='login-input' type="text" name="confirmationCode" value={credentials.confirmationCode} onChange={handleChange} required />
             <div className="btns">
               <button type="submit">CONFIRM</button>
             </div>
@@ -53,7 +53,7 @@ export default function LoginForm({ setUser, setShowSignUp, confirmPage }) {
           :
           <>
             <label>Password</label>
-            <input type="password" name="password" value={credentials.password} onChange={handleChange} required />
+            <input className='login-input' type="password" name="password" value={credentials.password} onChange={handleChange} required />
             <div className="btns">
               <button type="submit">LOG IN</button>
               <button className='btn-2' onClick={() => setShowSignUp(true)}>SIGN UP</button>
