@@ -69,6 +69,7 @@ export default function Player({ tracks, collection }) {
           autoPlay
           controls
           controlsList="nodownload noplaybackrate"
+          style={{ backgroundColor: 'transparent' }} 
           onPause={() => setIsPlaying(false)}
           onPlay={() => { 
             const duration = audioRef.current.audioEl.current.duration;
@@ -76,7 +77,7 @@ export default function Player({ tracks, collection }) {
             setIsPlaying(true)}}
           onEnded={() => handleAudioEnd()}
           listenInterval={1000}
-          onListen={() => updatePlayCount(audioRef)} 
+          onListen={() => updatePlayCount(audioRef)}
         />
 
       </div>
