@@ -1,0 +1,45 @@
+#footer {
+    background-color: #333333;
+}
+
+#footer-container {
+    padding-top: 75px;
+    padding-bottom: 75px;
+    display: flex; 
+    color: #E8E5E3;
+}
+
+.brand {
+    margin-right: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+}
+
+.sitemap {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    text-align: left;
+}
+.sitemap a {
+    margin-bottom: 8px;
+    transition: 250ms;
+}
+.sitemap a:hover {
+    color: white;
+}
+
+.sitemap h3 {
+    color: white;
+}
+
+.sitemap h4 {
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    color: white;
+}
