@@ -120,7 +120,7 @@ export default function NewCollectionPage({ collection, collections, setCollecti
                   </>
                 }
                 {!collection && (
-                  <>
+                  <div className="upload-input">
                     <label>Upload Cover Art:</label>
                     <input 
                       type="file"
@@ -129,7 +129,7 @@ export default function NewCollectionPage({ collection, collections, setCollecti
                       accept="image/*"
                       onChange={handlePreview}
                     />
-                  </>
+                  </div>
                 )}
               </div>
               <div className="column">

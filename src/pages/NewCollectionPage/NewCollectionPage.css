@@ -18,6 +18,12 @@ form {
     background-color: white;
 }
 
+.upload-input {
+    margin-top: -80px;
+    display: flex;
+    flex-direction: column;
+}
+
 .date {
     all: unset;
     display: block;
@@ -57,4 +63,18 @@ textarea {
 }
 
 
+@media (max-width: 768px) {
+    .upload-input {
+        margin: -80px 0 30px;
+        display: flex;
+        flex-direction: column;
+    }
+}
 
+@media (max-width: 550px) {
+    .upload-input {
+        margin: 0 0 30px;
+        display: flex;
+        flex-direction: column;
+    }
+}
