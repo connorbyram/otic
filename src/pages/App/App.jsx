@@ -10,6 +10,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import CollectionPage from '../CollectionPage/CollectionPage'
 import NewCollectionPage from '../NewCollectionPage/NewCollectionPage';
 import ConfirmPage from '../ConfirmPage/ConfirmPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
 import AboutUs from '../AboutUs/AboutUs';
 import TermsOfService from '../TermsOfService/TermsOfService';
 
@@ -38,6 +39,7 @@ export default function App() {
               <Route path="/about" element={<AboutUs/>} />
               <Route path="/termsofservice" element={<TermsOfService/>} />
               <Route path="/new_collection" element={<NewCollectionPage collections={collections} setCollections={setCollections} />} />
+              <Route path="/:userName" element={<ProfilePage collections={collections} user={user}/>} />
               <Route path="/:userName/:collectionTitle" element={<CollectionPage collections={collections} setCollections={setCollections} user={user} />} />
               {/* <Route path="/collections/favorites" element={<LandingPage collections={collections} />} /> */}
             </Routes>

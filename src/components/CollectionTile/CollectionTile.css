@@ -10,7 +10,7 @@
     transition: 250ms;
 }
 
-a:hover img {
+.tile-img:hover {
     transform: translate(0, -5px);
     box-shadow: 7px 7px 15px 1px rgba(0, 0, 0, 0.2);
 }

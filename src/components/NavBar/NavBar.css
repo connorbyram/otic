@@ -5,7 +5,7 @@ nav {
 
 .nav-container {
     margin: 0 auto;
-    padding: 10px 40px;
+    padding: 8px 40px;
     width: 100%;
     max-width: 1400px;
     display: flex;
@@ -15,6 +15,7 @@ nav {
 
 .nav-links {
     display: flex;
+    align-items: center;
     gap: 12px;
 }
 
@@ -31,6 +32,16 @@ span {
 
 .logo {
     font-size: 20px;
+}
+
+.profile-img-small {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all 550ms ease-in-out;
+}
+.profile-img-small:hover {
+    transform: rotate(45deg);
 }
 
 @media (max-width: 480px) {

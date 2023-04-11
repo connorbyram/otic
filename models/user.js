@@ -4,6 +4,14 @@ const bcrypt = require('bcrypt');
 
 const SALT_ROUNDS = 6;
 
+const profileSchema = new Schema({
+  picture: {type: String},
+  bio: {type: String},
+  agreement: {type: Boolean, default: false},
+}, {
+  timestamps: true,
+});
+
 const userSchema = new Schema({
   name: {
     type: String,
@@ -31,7 +39,8 @@ const userSchema = new Schema({
   confirmed: {type: Boolean, default: false},
   creator: {type: Boolean, default: false},
   superCreator: {type: Boolean, default: false},
-  
+
+  profile: [profileSchema],
 }, {
   timestamps: true,
   toJSON: {

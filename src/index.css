@@ -9,6 +9,10 @@ body {
   background-color: #E8E5E3;
 }
 
+main {
+  min-height: 100vh;
+}
+
 section {
   width: 100%;
 }
